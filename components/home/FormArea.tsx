@@ -8,7 +8,6 @@ import { formatCustomDate } from "@/utils/functions";
 
 const FormArea = () => {
   const [stations, setStations] = useState<Station[] | null>([]);
-
   const [fromStation, setFromStation] = useState("");
   const [toStation, setToStation] = useState("");
   const [isFromStation, setIsFromStation] = useState(true);
@@ -106,6 +105,7 @@ const FormArea = () => {
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
           minDate={new Date()}
+          label={"Gidiş Tarihi"}
         />
 
         <button
