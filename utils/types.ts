@@ -9,4 +9,12 @@ export type Station = {
   stationCode: string;
   stationTrainTypes: StationTrainType[];
   toStationList: ToStationList[];
-} & FromStationList
+} & FromStationList;
+
+export type RequestBody = {
+  gidisTarih: string;
+  binisIstasyonId: number;
+  inisIstasyonId: number;
+  binisIstasyon: string;
+  inisIstasyonu: string;
+};

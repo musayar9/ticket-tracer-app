@@ -5,6 +5,7 @@ type FormSelectProps = {
   label: string;
   selectedValue: string;
   value: string;
+  checkFromStation?:boolean,
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void; // Select öğesi için doğru event tipi
 };
 const FormSelect: React.FC<FormSelectProps> = ({
@@ -13,6 +14,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
   label,
   selectedValue,
   value,
+  checkFromStation
 }) => {
   return (
     <label className="form-control w-full max-w-xs">
@@ -23,8 +25,9 @@ const FormSelect: React.FC<FormSelectProps> = ({
         className="select select-bordered"
         value={value}
         onChange={onChange}
+        disabled={checkFromStation}
       >
-        <option value={""} disabled selected>
+        <option value={""} disabled>
           {selectedValue}
         </option>
         {item?.map((station) => (
