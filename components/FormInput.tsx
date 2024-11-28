@@ -1,6 +1,10 @@
+import { FromStationList } from "@/utils/types";
 import React from "react";
 
-const FormInput = () => {
+
+
+
+const FormInput = ( ) => {
   return (
     <label className="form-control w-full ">
       <div className="label">

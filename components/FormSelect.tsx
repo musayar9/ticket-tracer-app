@@ -1,23 +1,40 @@
-import React from 'react'
-
-const FormSelect = () => {
+import { FromStationList } from "@/utils/types";
+import React from "react";
+type FormSelectProps = {
+  item: FromStationList[] | undefined;
+  label: string;
+  selectedValue: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void; // Select öğesi için doğru event tipi
+};
+const FormSelect: React.FC<FormSelectProps> = ({
+  item,
+  onChange,
+  label,
+  selectedValue,
+  value,
+}) => {
   return (
     <label className="form-control w-full max-w-xs">
       <div className="label">
-        <span className="label-text">Gidiş Yeri</span>
+        <span className="label-text">{label}</span>
       </div>
-      <select className="select select-bordered">
-        <option disabled selected>
-          Pick one
+      <select
+        className="select select-bordered"
+        value={value}
+        onChange={onChange}
+      >
+        <option value={""} disabled selected>
+          {selectedValue}
         </option>
-        <option>Star Wars</option>
-        <option>Harry Potter</option>
-        <option>Lord of the Rings</option>
-        <option>Planet of the Apes</option>
-        <option>Star Trek</option>
+        {item?.map((station) => (
+          <option key={station.stationID} value={station.stationName}>
+            {station.stationViewName || station.stationName}
+          </option>
+        ))}
       </select>
     </label>
   );
-}
+};
 
-export default FormSelect
+export default FormSelect;
