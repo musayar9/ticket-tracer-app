@@ -18,3 +18,21 @@ export type RequestBody = {
   binisIstasyon: string;
   inisIstasyonu: string;
 };
+
+export type SearchTicketType = {
+  trainID: number;
+  trainName: string;
+  trainCode: string;
+  tourID: number;
+  departureDate: string;
+  arrivalDate: string;
+  emptyPlace: {
+    disabledPlaceCount: number;
+    totalEmptyPlaceCount: number;
+    normalPeopleEmptyPlaceCount: number;
+  };
+  arrivalStation: string;
+  departureStation: string;
+  departureStationID: number;
+  arrivalStationID: number;
+};

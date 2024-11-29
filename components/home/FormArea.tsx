@@ -94,7 +94,8 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
     const data = await searchTrain(requestBody);
     console.log(data, "data");
     setSearchTicket(data);
-    router.push("/search-ticket");
+    // router.push("/search-ticket");
+    router.replace("/search-ticket");
     setTimeout(() => {
       setLoading(false);
     }, 2000);
