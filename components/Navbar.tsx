@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="max-w-6xl mx-auto p-8">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <Link href={"/"} className="flex items-center gap-2">
           {/* <Image src={Logo} alt="logo" className="w-12 h-12 rounded-full" />
            */}
           <span className="bg-blue-500 rounded-full  w-10 h-10 flex items-center justify-center">
@@ -17,7 +17,7 @@ const Navbar = () => {
           <p className="font-semibold text-slate-600 tracking-wider">
             Ticket <span className="text-slate-700">Tracer</span> App
           </p>
-        </div>
+        </Link>
         <div>
           <div className="flex items-center gap-2">
             <IoTicket className="text-blue-500" size={18}/>
