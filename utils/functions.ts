@@ -1,4 +1,5 @@
 import { formatInTimeZone } from "date-fns-tz";
+import { differenceInMinutes } from "date-fns";
 export const formatCustomDate = (dateString: string): string => {
   const months = [
     "Jan",
@@ -37,4 +38,28 @@ export const formateHour = (dateString: string): string => {
     console.error("Error formatting date:", error);
     return "Invalid Date";
   }
+};
+
+
+type HoursMinutes = {
+  departuresDate: string;
+  arrivalsDate: string;
+};
+
+export const formattedHoursMinutes = ({
+  departuresDate,
+  arrivalsDate,
+}: HoursMinutes): string => {
+  const departureDate = new Date(departuresDate);
+  const arrivalDate = new Date(arrivalsDate);
+
+  // Dakika farkını hesapla
+  const totalMinutes = differenceInMinutes(arrivalDate, departureDate);
+
+  // Saat ve dakikaları hesapla
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  // Sonucu formatla
+  return `${hours} sa ${minutes} dk`;
 };

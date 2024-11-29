@@ -12,7 +12,7 @@ type HomeContentProps = {
 const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
   const { loading } = useGlobalContext();
 
-  if (loading) return <LoadingPage />;
+  // if (loading) return <LoadingPage />;
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10  bg-white p-8 rounded-lg">
       <InfoArea />

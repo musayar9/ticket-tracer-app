@@ -14,7 +14,7 @@ type FormAreaProps = {
 };
 
 const FormArea: React.FC<FormAreaProps> = ({ data }) => {
-  const { setSearchTicket, setLoading } = useGlobalContext();
+  const { setSearchTicket, setLoading, loading } = useGlobalContext();
   const router = useRouter();
   const [fromStation, setFromStation] = useState("");
   const [toStation, setToStation] = useState("");
@@ -143,11 +143,12 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
           error={error}
         />
 
-        <button
+        <button disabled={loading}
           type="submit"
-          className="w-full px-4 py-2 border border-blue-500 rounded-lg mt-4  font-semibold hover:bg-blue-600  hover:text-white transition  duration-200 ease-linear "
+          className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border border-blue-500 rounded-lg mt-4  font-semibold hover:bg-blue-600  hover:text-white transition  duration-200 ease-linear "
         >
-          Sorgula
+        {loading ? "Yükleniyor":"Sefer Ara"}
+        
         </button>
       </form>
       {errorMessage && error && (
