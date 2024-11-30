@@ -1,5 +1,5 @@
 import { formatInTimeZone } from "date-fns-tz";
-import { differenceInMinutes } from "date-fns";
+import { differenceInMinutes, format } from "date-fns";
 export const formatCustomDate = (dateString: string): string => {
   const months = [
     "Jan",
@@ -40,7 +40,6 @@ export const formateHour = (dateString: string): string => {
   }
 };
 
-
 type HoursMinutes = {
   departuresDate: string;
   arrivalsDate: string;
@@ -62,4 +61,12 @@ export const formattedHoursMinutes = ({
 
   // Sonucu formatla
   return `${hours} sa ${minutes} dk`;
+};
+
+export const formattedDate = (value:string):string => {
+  const date = new Date(value);
+
+  const formatDate = format(date, "dd.MM.yyyy");
+
+  return formatDate;
 };
