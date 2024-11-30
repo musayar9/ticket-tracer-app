@@ -17,7 +17,7 @@ const SearchTicket = () => {
     return <p>No tickets found.</p>;
   }
   return (
-    <div className="max-w-7xl mx-auto p-8 ">
+    <div className="max-w-6xl mx-auto p-8 ">
       <div className="rounded-lg p-8">
         <div className="px-4 flex items-center justify-center ">
           <div className="text-3xl flex items-center justify-center font-semibold gap-3">
@@ -30,18 +30,18 @@ const SearchTicket = () => {
           </div>
         </div>
 
-        <div className="space-y-4 my-4 p-2 ">
+        <div className="space-y-10 my-4 p-2 ">
           {searchTicket.map((item) => (
             <div
               key={item.tourID}
-              className="max-w-6xl flex items-start gap-2  bg-[#ffffff] shadow-xl rounded-3xl p-4"
+              className="max-w-6xl flex items-start gap-2  bg-[#ffffff]  rounded-3xl p-4"
             >
-              <div className="flex   p-8 ">
+              <div className=" self-center  p-4 ">
                 {/* Departure Station */}
-                <img src="/images/train.svg" className="w-20 p-2" alt="logo" />
+                <img src="/images/train.svg" className="w-20 p-2 " alt="logo" />
               </div>
 
-              <div className="flex items-start justify-center flex-col pl-8 pr-6 border-l-2 border-r-2  border-slate-500 border-dotted">
+              <div className="seferDepartureArrival flex items-start justify-center flex-col pl-8 pr-6 border-l-2 border-r-2  border-slate-500 border-dotted">
                 <p className="text-[17px]">
                   {" "}
                   <span className="text-[#444763] font-semibold">
