@@ -34,7 +34,7 @@ const SearchTicket = () => {
           {searchTicket.map((item) => (
             <div
               key={item.tourID}
-              className="max-w-6xl flex items-start gap-2  bg-[#ffffff]  rounded-3xl p-4"
+              className="max-w-6xl flex items-start gap-2  bg-[#fff]  shadow-xl rounded-3xl p-4"
             >
               <div className=" self-center  p-4 ">
                 {/* Departure Station */}
@@ -50,7 +50,7 @@ const SearchTicket = () => {
                   <span className="text-[#444763] ">{item.trainName}</span>
                 </p>
 
-                <div className="flex items-center justify-between w-[600px] text-[#8392a7] text-[14px] font-semibold mt-4">
+                <div className="flex items-center justify-between w-[600px] text-[#8392a7] text-[14px] font-semibold mt-4 mr-0 ml-0">
                   <span>{item.departureStation}</span>
                   <span className="text-center">
                     {formattedHoursMinutes({
@@ -74,7 +74,7 @@ const SearchTicket = () => {
                   <span className="text-[#8392a7] font-bold text-[14px]">
                     {formattedDate(item.departureDate)}
                   </span>
-                  <span className="text-[#8392a7] font-bold text-[14px] pr-24">
+                  <span className="text-[#8392a7] font-bold text-[14px] ">
                     Direkt
                   </span>
                   <span className="text-[#8392a7] font-bold text-[14px]">
