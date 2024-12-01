@@ -9,6 +9,9 @@ import Image from "next/image";
 import React from "react";
 import { FaTrain } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
+import { TbDisabled } from "react-icons/tb";
+import { LuArmchair } from "react-icons/lu";
+import { Md4K, MdAirlineSeatReclineNormal } from "react-icons/md";
 const SearchTicket = () => {
   const { searchTicket } = useGlobalContext();
   console.log(searchTicket, "searchTicket");
@@ -34,7 +37,11 @@ const SearchTicket = () => {
           {searchTicket.map((item) => (
             <div
               key={item.tourID}
-              className="max-w-6xl flex items-start gap-2  bg-[#fff]  shadow-xl rounded-3xl p-4"
+              className={`${
+                item?.emptyPlace?.normalPeopleEmptyPlaceCount === 0
+                  ? "bg-[#fff]"
+                  : "bg-[#edf0f4]"
+              } max-w-6xl flex items-start gap-2  shadow-xl rounded-3xl p-4`}
             >
               <div className=" self-center  p-4 ">
                 {/* Departure Station */}
@@ -50,15 +57,17 @@ const SearchTicket = () => {
                   <span className="text-[#444763] ">{item.trainName}</span>
                 </p>
 
-                <div className="flex items-center justify-between w-[600px] text-[#8392a7] text-[14px] font-semibold mt-4 mr-0 ml-0">
-                  <span>{item.departureStation}</span>
-                  <span className="text-center">
+                <div className=" grid grid-cols-8 w-[600px] text-[#8392a7] text-[14px] font-semibold mt-4 mr-0 ml-0">
+                  <span className="col-span-2">{item.departureStation}</span>
+                  <span className="text-center col-span-4">
                     {formattedHoursMinutes({
                       departuresDate: item?.departureDate,
                       arrivalsDate: item?.arrivalDate,
                     })}
                   </span>
-                  <span>{item.arrivalStation}</span>
+                  <span className="col-span-2 text-end">
+                    {item.arrivalStation}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between w-[600px] ">
                   <span className="text-[#444763] font-bold text-[24px]">
@@ -69,20 +78,40 @@ const SearchTicket = () => {
                     {formateHour(item.arrivalDate)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between w-[600px] ">
-                  {" "}
-                  <span className="text-[#8392a7] font-bold text-[14px]">
+                <div className="grid grid-cols-8 w-[600px] mr-0 ml-0">
+                  <span className="text-[#8392a7] font-bold text-[14px] col-span-2">
                     {formattedDate(item.departureDate)}
                   </span>
-                  <span className="text-[#8392a7] font-bold text-[14px] ">
+                  <span className="text-[#8392a7] font-bold text-[14px] col-span-4 text-center">
                     Direkt
                   </span>
-                  <span className="text-[#8392a7] font-bold text-[14px]">
+                  <span className="text-[#8392a7] font-bold text-[14px] col-span-2 text-end">
                     {formattedDate(item.arrivalDate)}
                   </span>
                 </div>
               </div>
-              <div className="flex gap-1"></div>
+              <div className="flex gap-1 p-4 flex-col">
+                <h6 className="text-[#8392a7] text-[14px] font-semibold ">
+                  Bilet ücreti
+                </h6>
+                <p className="text-[#444763] text-[24px] font-bold">
+                  TRY: 540.00
+                </p>
+                <div className="flex items-center gap-2">
+                  <p className="flex items-center font-semibold text-xs text-[#8392a7]">
+                    <TbDisabled className="" size={18} />
+                    <span>({item.emptyPlace.disabledPlaceCount})</span>
+                  </p>
+                  <p className="flex items-center font-semibold text-xs text-[#8392a7]">
+                    <LuArmchair className="" size={18} />
+                    <span>({item.emptyPlace.totalEmptyPlaceCount})</span>
+                  </p>
+                  <p className="flex items-center font-semibold text-xs text-[#8392a7]">
+                    <MdAirlineSeatReclineNormal className="" size={18} />
+                    <span>({item.emptyPlace.normalPeopleEmptyPlaceCount})</span>
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

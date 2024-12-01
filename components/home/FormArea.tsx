@@ -143,12 +143,13 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
           error={error}
         />
 
-        <button disabled={loading}
+        <button
+          disabled={loading}
           type="submit"
-          className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border border-blue-500 rounded-lg mt-4  font-semibold hover:bg-blue-600  hover:text-white transition  duration-200 ease-linear "
+          className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border rounded-lg mt-4  font-semibold text-[#fff] bg-[#de2619] hover:bg-[#dc3545]
+transition  duration-200 ease-linear "
         >
-        {loading ? "Yükleniyor":"Sefer Ara"}
-        
+          {loading ? "Yükleniyor" : "Sefer Ara"}
         </button>
       </form>
       {errorMessage && error && (

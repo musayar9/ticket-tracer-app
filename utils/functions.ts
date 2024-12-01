@@ -60,7 +60,7 @@ export const formattedHoursMinutes = ({
   const minutes = totalMinutes % 60;
 
   // Sonucu formatla
-  return `${hours} sa ${minutes} dk`;
+  return `${hours}sa${minutes}dk`;
 };
 
 export const formattedDate = (value:string):string => {
