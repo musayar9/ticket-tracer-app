@@ -8,10 +8,10 @@ import {
 import Image from "next/image";
 import React from "react";
 import { FaTrain } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaTrash } from "react-icons/fa6";
 import { TbDisabled } from "react-icons/tb";
 import { LuArmchair } from "react-icons/lu";
-import { Md4K, MdAirlineSeatReclineNormal } from "react-icons/md";
+import { Md4K, MdAirlineSeatReclineNormal, MdFileDownloadDone } from "react-icons/md";
 const SearchTicket = () => {
   const { searchTicket } = useGlobalContext();
   console.log(searchTicket, "searchTicket");
@@ -41,7 +41,7 @@ const SearchTicket = () => {
                 item?.emptyPlace?.normalPeopleEmptyPlaceCount === 0
                   ? "bg-[#fff]"
                   : "bg-[#edf0f4]"
-              } max-w-6xl flex items-start gap-2  shadow-xl rounded-3xl p-4`}
+              } max-w-6xl flex items-start gap-2  shadow-xl rounded-3xl p-4 relative`}
             >
               <div className=" self-center  p-4 ">
                 {/* Departure Station */}
@@ -112,6 +112,33 @@ const SearchTicket = () => {
                   </p>
                 </div>
               </div>
+
+              <button
+                disabled={item.emptyPlace.normalPeopleEmptyPlaceCount !== 0}
+                className={`${
+                  item.emptyPlace.normalPeopleEmptyPlaceCount !== 0
+                    ? "disabled:opacity-80 disabled:cursor-not-allowed bg-[#de2619]"
+                    : "bg-emerald-500  hover:bg-emerald-600 duration-200 ease-linear"
+                }  bottom-0 absolute right-0 rounded-br-3xl rounded-tl-3xl px-4 py-1 text-sm text-[#fff] group flex items-center justify-center`}
+              >
+                <span
+                  className={`${
+                    item.emptyPlace.normalPeopleEmptyPlaceCount == 0
+                      ? "group-hover:translate-x-4 group-hover:opacity-0 duration-300 ease-in pl-3 group-hover:pl-0"
+                      : "pl-3 text-center"
+                  }`}
+                >
+                  Seçin
+                </span>
+                <MdFileDownloadDone
+                  size={18}
+                  className={`${
+                    item.emptyPlace.normalPeopleEmptyPlaceCount == 0
+                      ? "opacity-0 group-hover:-translate-x-4 group-hover:opacity-100 duration-300 ease-in "
+                      : "opacity-0 "
+                  }`}
+                />
+              </button>
             </div>
           ))}
         </div>
