@@ -1,12 +1,21 @@
 "use client";
 
+// import { getTicketFromLocalStorage } from "@/utils/localStorage";
 import { SearchTicketType } from "@/utils/types";
-import React, { createContext, useContext, ReactNode, useState } from "react";
+import React, { createContext, useContext, ReactNode, useState , useEffect} from "react";
+
+// export const getTicketFromLocalStorage = () => {
+
+//     const result = localStorage.getItem("ticket");
+//     const ticket = result ? JSON.parse(result) : [];
+//     return ticket;
+
+// };
 
 type TicketContextType = {
   searchTicket: SearchTicketType[] | undefined;
   setSearchTicket: React.Dispatch<
-    React.SetStateAction<SearchTicketType[] | undefined>
+    React.SetStateAction<SearchTicketType[]  | undefined>
   >;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +24,15 @@ type TicketContextType = {
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
 
 const TicketProvider = ({ children }: { children: ReactNode }) => {
-  const [searchTicket, setSearchTicket] = useState<SearchTicketType[] | undefined>(undefined);
+const [searchTicket, setSearchTicket] = useState<
+  SearchTicketType[] | undefined
+>(undefined);
+  // const searchTicket = getTicketFromLocalStorage()
+   useEffect(() => {
+  const result = localStorage.getItem("ticket")
+  const ticket = result ? JSON.parse(result) : [];
+  setSearchTicket(ticket)
+  }, [])
   const [loading, setLoading] = useState(false);
 
   const value = { searchTicket, setSearchTicket, loading, setLoading };
