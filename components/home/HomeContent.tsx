@@ -6,21 +6,23 @@ import FormArea from "./FormArea";
 // import LoadingPage from "../LoadingPage";
 import { Station } from "@/utils/types";
 import { usePathname } from "next/navigation";
-import { removeTicketFromLocalStorage } from "@/utils/localStorage";
+
+import { useGlobalContext } from "@/context/ticket-tracer-context";
 
 type HomeContentProps = {
   data: Station[];
 };
 const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
-  // const { loading } = useGlobalContext();
+  const { setLoading } = useGlobalContext();
   const pathname = usePathname();
   console.log("pathname", pathname);
 
   useEffect(() => {
     if (pathname === "/") {
-      removeTicketFromLocalStorage();
+      localStorage.removeItem("ticket");
+      setLoading(false);
     }
-  }, [pathname]);
+  }, [pathname, setLoading]);
   // if (loading) return <LoadingPage />;
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10  bg-white p-8 rounded-lg">

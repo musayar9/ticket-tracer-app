@@ -18,5 +18,5 @@ export const addTicketToLocalStorage = (ticket: SearchTicketType) => {
 //   return [];
 // };
 export const removeTicketFromLocalStorage = () => {
-  localStorage.removeItem("ticket");
+  localStorage.removeItem("");
 };

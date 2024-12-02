@@ -8,14 +8,13 @@ import { formatCustomDate } from "@/utils/functions";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
 import { useRouter } from "next/navigation";
 import { IoWarning } from "react-icons/io5";
-import { addTicketToLocalStorage } from "@/utils/localStorage";
 
 type FormAreaProps = {
   data: Station[];
 };
 
 const FormArea: React.FC<FormAreaProps> = ({ data }) => {
-  const { setLoading, loading } = useGlobalContext();
+  const { setLoading, loading, setSearchTicket } = useGlobalContext();
   const router = useRouter();
   const [fromStation, setFromStation] = useState("");
   const [toStation, setToStation] = useState("");
@@ -94,8 +93,9 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
 
     const data = await searchTrain(requestBody);
     console.log(data, "data");
-    // setSearchTicket(data);
-    addTicketToLocalStorage(data)
+    setSearchTicket(data);
+    // addTicketToLocalStorage(data)
+    localStorage.setItem("ticket", JSON.stringify(data));
     router.push("/search-ticket");
     // router.replace("/search-ticket");
     // setTimeout(() => {
