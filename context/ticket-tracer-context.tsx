@@ -1,16 +1,8 @@
 "use client";
 
-// import { getTicketFromLocalStorage } from "@/utils/localStorage";
 import { SearchTicketType } from "@/utils/types";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
-// export const getTicketFromLocalStorage = () => {
-
-//     const result = localStorage.getItem("ticket");
-//     const ticket = result ? JSON.parse(result) : [];
-//     return ticket;
-
-// };
 
 type TicketContextType = {
   searchTicket: SearchTicketType[] | undefined;
@@ -21,6 +13,10 @@ type TicketContextType = {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
+  selectedTrains: SearchTicketType[];
+  setSelectedTrains: React.Dispatch<React.SetStateAction<SearchTicketType[]>>;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
@@ -29,15 +25,10 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [searchTicket, setSearchTicket] = useState<
     SearchTicketType[] | undefined
   >(undefined);
-  // const searchTicket = getTicketFromLocalStorage()
-  // useEffect(() => {
-  // const result = localStorage.getItem("ticket")
-  // const ticket = result ? JSON.parse(result) : [];
-  // setSearchTicket(ticket)
-  // }, [])
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-
+  const [selectedTrains, setSelectedTrains] = useState<SearchTicketType[]>([]);
+  const [showModal, setShowModal] = useState(false);
   const value = {
     searchTicket,
     setSearchTicket,
@@ -45,6 +36,10 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
     setLoading,
     email,
     setEmail,
+    selectedTrains,
+    setSelectedTrains,
+    showModal,
+    setShowModal,
   };
 
   return (
