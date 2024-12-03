@@ -118,7 +118,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
         Tren <span className="text-slate-700">Bileti</span> Sorgulama
       </h3>
       <form onSubmit={handleSubmit}>
-        <div className="flex  flex-col md:flex-row items-center justify-center gap-4">
+        <div className="flex  flex-col md:flex-row  items-center justify-center gap-4">
           <FormSelect
             item={fromStationData}
             onChange={handleFromStationChange}
