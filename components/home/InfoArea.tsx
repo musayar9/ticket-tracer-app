@@ -2,7 +2,7 @@ import React from "react";
 import { FaTrainSubway } from "react-icons/fa6";
 const InfoArea = () => {
   return (
-    <div className="border border-slate-300 rounded-lg p-4 ">
+    <div className="border border-slate-300 rounded-lg p-4 hidden md:block">
       <div className="flex items-center justify-between">
         <div className="flex items-center ">
           <span className="flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full">

@@ -118,7 +118,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
         Tren <span className="text-slate-700">Bileti</span> Sorgulama
       </h3>
       <form onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex  flex-col md:flex-row items-center justify-center gap-4">
           <FormSelect
             item={fromStationData}
             onChange={handleFromStationChange}
@@ -137,22 +137,24 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
             error={error}
           />
         </div>
-        <FormInput
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          minDate={new Date()}
-          label={"Gidiş Tarihi"}
-          error={error}
-        />
+        <div className="flex  flex-col  items-center justify-center gap-4 mt-4 md:mt-0">
+          <FormInput
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            minDate={new Date()}
+            label={"Gidiş Tarihi"}
+            error={error}
+          />
 
-        <button
-          disabled={loading}
-          type="submit"
-          className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border rounded-lg mt-4  font-semibold text-[#fff] bg-[#de2619] hover:bg-[#dc3545]
+          <button
+            disabled={loading}
+            type="submit"
+            className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border rounded-lg mt-4  font-semibold text-[#fff] bg-[#de2619] hover:bg-[#dc3545]
 transition  duration-200 ease-linear "
-        >
-          {loading ? "Yükleniyor" : "Sefer Ara"}
-        </button>
+          >
+            {loading ? "Yükleniyor" : "Sefer Ara"}
+          </button>
+        </div>
       </form>
       {errorMessage && error && (
         <div role="alert" className="alert alert-error">

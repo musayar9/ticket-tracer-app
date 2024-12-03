@@ -6,7 +6,7 @@ import {
   formattedHoursMinutes,
 } from "@/utils/functions";
 // import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FaArrowRight, FaXmark } from "react-icons/fa6";
 import { TbDisabled } from "react-icons/tb";
@@ -14,13 +14,17 @@ import { LuArmchair } from "react-icons/lu";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import { SearchTicketType } from "@/utils/types";
 import { BsFillPatchMinusFill, BsPatchPlusFill } from "react-icons/bs";
-import { AiOutlineSync } from "react-icons/ai";
+
 import customFetch from "@/utils/axios";
+import { useRouter } from "next/navigation";
 
 const SearchTicket = () => {
   const { searchTicket, email, setEmail } = useGlobalContext();
   const [selectedTrains, setSelectedTrains] = useState<SearchTicketType[]>([]);
   const [emailError, setEmailError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
+  const router = useRouter()
   const handleSelectTrain = (train: SearchTicketType) => {
     if (
       selectedTrains.some(
@@ -45,11 +49,19 @@ const SearchTicket = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Geçerli bir email adresi girin.");
+
       return false;
     }
     setEmailError("");
     return true;
   };
+  useEffect(() => {
+    if (emailError) {
+      setTimeout(() => {
+        setEmailError("");
+      }, 3000);
+    }
+  }, [emailError]);
 
   const handleAddedTicket = async () => {
     if (handleEmailValidation()) {
@@ -70,6 +82,7 @@ const SearchTicket = () => {
           request: selectedTickets,
         });
         console.log(res, "res");
+        setShowSuccessMsg(true);
       } catch (error) {
         console.log(error);
         console.log("ekleme sırasında bir hata oluştu");
@@ -231,80 +244,109 @@ const SearchTicket = () => {
         <>
           {selectedTrains.length > 0 && (
             <button
+              onClick={() => setShowModal(true)}
               className="fixed bottom-5 right-2 border border-slate-300 hover:border-slate-50 hover:bg-emerald-500 font-semibold px-4 py-2 rounded-xl text-[#444763] hover:text-[#fff] text-xs
     transition    duration-200 ease-in 
         
         "
             >
-              <a href="#my_modal_8" className="">
-                Seçimi Tamamla
-              </a>
+              Seçimi Tamamla
             </button>
           )}
         </>
-
-        <div className="modal" role="dialog" id="my_modal_8">
-          <div className="modal-box">
-            <div className="flex justify-end mb-4">
-              <button
-                onClick={() =>
-                  (document.getElementById("my_modal_8")!.style.display =
-                    "none")
-                }
-                className="self-end"
-              >
-                <FaXmark
-                  size={20}
-                  className="text-red-600 hover:opacity-85 duration-200 ease-in"
-                />
-              </button>
-            </div>
-
-            <div className="flex flex-col items-center justify-center">
-              <h3 className="text-2xl font-semibold text-slate-600">E-Mail</h3>
-              <video
-                src="/video/email2.mp4"
-                className="rounded-full  w-24 h-24  -mt-2 "
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-            </div>
-
-            <>
-              <div className="relative">
-                <input
-                  name="email"
-                  value={email}
-                  type="text"
-                  placeholder="E-mail Adresiniz Girin"
-                  className=" peer w-full  flex px-2.5 pb-2.5 pt-4 text-sm bg-transparent rounded-md border-2 border-emerald-600 appearance-none  
+        {showModal && (
+          <div className=" fixed  z-50 inset-0 bg-black bg-opacity-75 flex justify-center items-center w-full ">
+            <div className=" absolute top-20 p-4 w-full max-w-xl max-h-full ">
+              <div className="relative bg-[#ffffff] p-6 rounded-lg shadow">
+                <div className="flex justify-end mb-4">
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="self-end"
+                  >
+                    <FaXmark
+                      size={20}
+                      className="text-red-600 hover:opacity-85 duration-200 ease-in"
+                    />
+                  </button>
+                </div>
+                {
+                  <>
+                    {showSuccessMsg ? (
+                      // Success Message Content
+                      <div className="flex flex-col items-center justify-center p-6 gap-4">
+                        <h3 className="font-semibold text-emerald-600 text-3xl">
+                          Talebiniz başarı ile alındı
+                        </h3>
+                        <p className="text-[#444763] text-md text-center">
+                          Uygun yer bulunması durumunda mail adresinize
+                          bilgilendirme yapılacaktır.
+                        </p>
+                        <button
+                          onClick={() => {
+                            setShowModal(false);
+                            setShowSuccessMsg(false);
+                            router.replace("/")
+                          }}
+                          className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end text-xs hover:opacity-85 duration-200 ease-in"
+                        >
+                          Tamam
+                        </button>
+                      </div>
+                    ) : (
+                      // Email Message Content
+                      <div>
+                        {" "}
+                        <div className="flex flex-col items-center justify-center">
+                          <h3 className="text-2xl font-semibold text-slate-600">
+                            E-Mail
+                          </h3>
+                          <video
+                            src="/video/email2.mp4"
+                            className="rounded-full  w-24 h-24  -mt-2 "
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                          />
+                        </div>
+                        <>
+                          <div className="relative">
+                            <input
+                              name="email"
+                              value={email}
+                              type="text"
+                              placeholder="E-mail Adresiniz Girin"
+                              className=" peer w-full  flex px-2.5 pb-2.5 pt-4 text-sm bg-transparent rounded-md border-2 border-emerald-600 appearance-none  
                   focus:ring-0 focus:border-emerald-600 placeholder:capitalize outline-none"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
 
-                <label className="flex  absolute text-sm   bg-base-100  capitalize duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-emerald-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-                  E-mail Addresinizi Girin
-                </label>
+                            <label className="flex  absolute text-sm   bg-base-100  capitalize duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-emerald-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                              E-mail Addresinizi Girin
+                            </label>
+                          </div>
+                          {emailError && (
+                            <p className="alert alert-error rounded-lg px-4 py-2 text-xs text-white my-4">
+                              {emailError}
+                            </p>
+                          )}
+                          <div className="modal-action flex  ">
+                            <button
+                              onClick={handleAddedTicket}
+                              className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end text-xs hover:opacity-85 duration-200 ease-in"
+                            >
+                              Mail Gönder
+                            </button>
+                          </div>
+                        </>
+                      </div>
+                    )}
+                  </>
+                }
               </div>
-              {emailError && (
-                <p className="alert alert-error rounded-lg px-4 py-2 text-xs text-white my-4">
-                  {emailError}
-                </p>
-              )}
-              <div className="modal-action flex  ">
-                <a
-                  onClick={handleAddedTicket}
-                  href={`${"#"}`}
-                  className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end text-xs hover:opacity-85 duration-200 ease-in"
-                >
-                  Mail Gönder
-                </a>
-              </div>
-            </>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
