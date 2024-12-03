@@ -52,18 +52,18 @@ export const formattedHoursMinutes = ({
   const departureDate = new Date(departuresDate);
   const arrivalDate = new Date(arrivalsDate);
 
-  // Dakika farkını hesapla
   const totalMinutes = differenceInMinutes(arrivalDate, departureDate);
 
-  // Saat ve dakikaları hesapla
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
+  if (hours === 0) {
+    return `${minutes}dk`;
+  }
 
-  // Sonucu formatla
   return `${hours}sa${minutes}dk`;
 };
 
-export const formattedDate = (value:string):string => {
+export const formattedDate = (value: string): string => {
   const date = new Date(value);
 
   const formatDate = format(date, "dd.MM.yyyy");

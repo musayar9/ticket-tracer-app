@@ -9,13 +9,12 @@ const Navbar = () => {
     <nav className="max-w-6xl mx-auto p-8">
       <div className="flex items-center justify-between">
         <Link href={"/"} className="flex items-center gap-2">
-          {/* <Image src={Logo} alt="logo" className="w-12 h-12 rounded-full" />
-           */}
+  
           <span className="bg-blue-500 rounded-full  w-10 h-10 flex items-center justify-center">
             <FaTrainSubway className="text-white" size={18} />
           </span>
           <p className="font-semibold text-slate-600 tracking-wider">
-            Ticket <span className="text-slate-700">Tracer</span> App
+            Ticket <span className="text-slate-700">Tracer</span>
           </p>
         </Link>
         <div>

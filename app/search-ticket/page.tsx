@@ -8,16 +8,18 @@ import {
 // import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import { FaArrowRight, FaXmark } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight, FaXmark } from "react-icons/fa6";
 import { TbDisabled } from "react-icons/tb";
 import { LuArmchair } from "react-icons/lu";
-import { MdAirlineSeatReclineNormal } from "react-icons/md";
+import { MdAirlineSeatReclineNormal, MdEmail } from "react-icons/md";
 import { SearchTicketType } from "@/utils/types";
 import { BsFillPatchMinusFill, BsPatchPlusFill } from "react-icons/bs";
 
 import customFetch from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
 const SearchTicket = () => {
   const { searchTicket, email, setEmail } = useGlobalContext();
@@ -41,8 +43,7 @@ const SearchTicket = () => {
       if (selectedTrains.length < 3) {
         setSelectedTrains([...selectedTrains, train]);
       } else {
-        console.log("en fazla 3 sefer seçebilirsiniz");
-        // return
+        toast.error("En fazla 3 sefer seçebilirsiniz");
       }
     }
   };
@@ -86,13 +87,35 @@ const SearchTicket = () => {
         setShowSuccessMsg(true);
       } catch (error) {
         console.log(error);
-        console.log("ekleme sırasında bir hata oluştu");
+
+        toast.error("ekleme sırasında bir hata oluştu");
       }
     }
   };
 
   if (!searchTicket || searchTicket.length === 0) {
-    return <p>No tickets found.</p>;
+    return (
+      <div className="maw-5xl mx-auto">
+        <div className="flex flex-col items-center justify-center gap-4">
+          {" "}
+          <Image
+            src="/images/train.webp"
+            alt="Not Content"
+            width={300}
+            height={300}
+            className="rounded-full w-72 h-72 object-center"
+          />
+          <p className="text-2xl font-semibold text-red-600">Tren Seferi Bulunamadı </p>
+          <Link
+            href="/"
+            className= "flex gap-2 items-center underline font-semibold text-blue-700 hover:text-blue-800 duration-200 ease-in"
+          >
+            <FaArrowLeft />
+            <span> Arama Ekranına Dön</span>
+          </Link>
+        </div>
+      </div>
+    );
   }
   console.log(selectedTrains, "selectedTreains");
   return (
@@ -121,9 +144,9 @@ const SearchTicket = () => {
                   item?.emptyPlace?.normalPeopleEmptyPlaceCount === 0
                     ? `${isSelected ? "bg-emerald-200" : "bg-[#fff]"}`
                     : "bg-[#edf0f4]"
-                } flex flex-wrap md:flex-nowrap  items-start gap-2  shadow-xl rounded-3xl p-4 relative`}
+                } flex flex-wrap md:flex-nowrap md:grid grid-cols-9 items-center  gap-2 box-border  shadow-xl rounded-3xl p-4 relative`}
               >
-                <div className="  p-4 pl-10 md:pl-0 md:p-2 self-center ">
+                <div className="p-4 pl-10 md:pl-0 md:p-2 self-center md:col-span-1">
                   {/* Departure Station */}
                   <Image
                     width={100}
@@ -134,12 +157,9 @@ const SearchTicket = () => {
                   />
                 </div>
 
-                <div className=" seferDepartureArrival  flex items-start justify-center  flex-col md:pl-6 md:pr-6 border-t-2 border-b-2 md:border-t-0 md:border-b-0 -mt-3 md:mt-0 py-2 md:py-0  md:border-l-2 md:border-r-2  border-slate-500 border-dotted">
+                <div className=" seferDepartureArrival   flex items-start justify-center md:col-span-6 box-border flex-col md:pl-6 md:pr-6 border-t-2 border-b-2 md:border-t-0 md:border-b-0 -mt-3 md:mt-0 py-2 md:py-0  md:border-l-2 md:border-r-2  border-slate-500 border-dotted">
                   <p className="text-[12px] md:text-[14px] lg:text-[17px]">
-                    {" "}
-                    <span className="text-[#444763] font-semibold">
-                      YHT:
-                    </span>{" "}
+                    <span className="text-[#444763] font-semibold">YHT:</span>
                     <span className="text-[#444763] ">{item.trainName}</span>
                   </p>
 
@@ -179,7 +199,7 @@ const SearchTicket = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex gap-1 mt-1 md:mt-0 md:p-4 flex-col ">
+                <div className="flex gap-1 mt-1 md:col-span-2 md:mt-0 md:p-4 flex-col box-border">
                   <h6 className="text-[#8392a7]  text-[11px] md:text-[14px] font-semibold ">
                     Bilet ücreti
                   </h6>
@@ -210,7 +230,7 @@ const SearchTicket = () => {
                   className={`${
                     item.emptyPlace.normalPeopleEmptyPlaceCount !== 0
                       ? "hidden"
-                      :  " block bg-emerald-500  hover:bg-emerald-600 duration-200 ease-linear"
+                      : " flex bg-emerald-500  hover:bg-emerald-600 duration-200 ease-linear"
                   }  bottom-0 absolute right-0 rounded-br-3xl rounded-tl-3xl px-4 py-1 text-xs md:text-sm text-[#fff] group flex items-center justify-center`}
                 >
                   <span
@@ -300,8 +320,11 @@ const SearchTicket = () => {
                       </div>
                     ) : (
                       // Email Message Content
-                      <div>
-                
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-center">
+                          <MdEmail className="bg-emerald-700 w-20 h-20 text-white rounded-full p-4 " />
+                        </div>
+
                         <>
                           <div className="relative">
                             <input

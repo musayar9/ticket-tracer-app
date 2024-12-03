@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import FormArea from "./FormArea";
-// import { useGlobalContext } from "@/context/ticket-tracer-context";
-// import LoadingPage from "../LoadingPage";
 import { Station } from "@/utils/types";
 import { usePathname } from "next/navigation";
-
 import { useGlobalContext } from "@/context/ticket-tracer-context";
 
 type HomeContentProps = {
@@ -22,10 +19,9 @@ const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
       setLoading(false);
     }
   }, [pathname, setLoading]);
-  // if (loading) return <LoadingPage />;
+
   return (
-    <section className="max-w-lg mx-auto    bg-white p-8 rounded-lg">
-    
+    <section className="max-w-lg mx-auto  shadow-xl   bg-white p-8 rounded-lg">
       <FormArea data={data} />
     </section>
   );
