@@ -67,7 +67,7 @@ body {
 }
  .seferDepartureArrival::before {
     content: "";
-    display: inline-block;
+    display: none;
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -81,7 +81,7 @@ body {
 
 .seferDepartureArrival::after {
   content: "";
-  display: inline-block;
+  display: none;
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -89,4 +89,13 @@ body {
   right: -12px;
   top: -29px;
   background-color: #f1f5f9;;
+}
+
+
+
+@media (min-width: 768px) {
+  .seferDepartureArrival::before,
+  .seferDepartureArrival::after {
+    display: inline-block; /* Bu boyutlarda göster */
+  }
 }

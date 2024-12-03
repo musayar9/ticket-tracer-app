@@ -17,6 +17,7 @@ import { BsFillPatchMinusFill, BsPatchPlusFill } from "react-icons/bs";
 
 import customFetch from "@/utils/axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SearchTicket = () => {
   const { searchTicket, email, setEmail } = useGlobalContext();
@@ -24,7 +25,7 @@ const SearchTicket = () => {
   const [emailError, setEmailError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const handleSelectTrain = (train: SearchTicketType) => {
     if (
       selectedTrains.some(
@@ -95,10 +96,10 @@ const SearchTicket = () => {
   }
   console.log(selectedTrains, "selectedTreains");
   return (
-    <div className="max-w-6xl mx-auto p-8 ">
-      <div className=" p-8 relative">
+    <div className="max-w-[1200px] w-full mx-auto p-2 md:p-8 ">
+      <div className=" p-8 ">
         <div className="px-4 flex items-center justify-center ">
-          <div className="text-3xl flex items-center justify-center font-semibold gap-3">
+          <div className="text-sm md:text-xl lg:text-3xl flex flex-wrap items-center justify-center font-semibold gap-3">
             <p className="text-slate-700">Gidiş - </p>
             <p className="text-slate-600">
               {searchTicket[0]?.departureStation}
@@ -120,19 +121,21 @@ const SearchTicket = () => {
                   item?.emptyPlace?.normalPeopleEmptyPlaceCount === 0
                     ? `${isSelected ? "bg-emerald-200" : "bg-[#fff]"}`
                     : "bg-[#edf0f4]"
-                } max-w-6xl flex items-start gap-2  shadow-xl rounded-3xl p-4 relative`}
+                } flex flex-wrap md:flex-nowrap items-start gap-2  shadow-xl rounded-3xl p-4 relative`}
               >
-                <div className=" self-center  p-4 ">
+                <div className="md:self-center  p-4 pl-10 md:p-2  ">
                   {/* Departure Station */}
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src="/images/train.svg"
-                    className="w-20 p-2 "
+                    className="w-32 h-auto md:w-28 lg:w-20 p-2 "
                     alt="logo"
                   />
                 </div>
 
-                <div className="seferDepartureArrival flex items-start justify-center flex-col pl-8 pr-6 border-l-2 border-r-2  border-slate-500 border-dotted">
-                  <p className="text-[17px]">
+                <div className=" seferDepartureArrival flex items-start justify-center w-full flex-col md:pl-6 md:pr-6 md:border-l-2 md:border-r-2  md:border-slate-500 md:border-dotted">
+                  <p className="text-[12px] md:text-[14px] lg:text-[17px]">
                     {" "}
                     <span className="text-[#444763] font-semibold">
                       YHT:
@@ -140,44 +143,47 @@ const SearchTicket = () => {
                     <span className="text-[#444763] ">{item.trainName}</span>
                   </p>
 
-                  <div className=" grid grid-cols-8 w-[600px] text-[#8392a7] text-[14px] font-semibold mt-4 mr-0 ml-0">
-                    <span className="col-span-2">{item.departureStation}</span>
+                  <div className=" grid grid-cols-8 w-full text-[#8392a7] text-[11px] md:text-[14px]  font-semibold mt-4 mr-0 ml-0">
+                    <span className="col-span-2 truncate">
+                      {item.departureStation}
+                    </span>
                     <span className="text-center col-span-4">
                       {formattedHoursMinutes({
                         departuresDate: item?.departureDate,
                         arrivalsDate: item?.arrivalDate,
                       })}
                     </span>
-                    <span className="col-span-2 text-end">
+                    <span className="col-span-2 text-end truncate">
                       {item.arrivalStation}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between w-[600px] ">
-                    <span className="text-[#444763] font-bold text-[24px]">
+                  <div className="flex items-center justify-between w-full ">
+                    <span className="text-[#444763] font-bold text-[14px] md:text-[24px]">
                       {formateHour(item.departureDate)}
                     </span>
-                    <span className="horizontalHR"></span>
-                    <span className="text-[#444763] font-bold text-[24px]">
+                    <span className=" horizontalHR max-w-full w-[100%]"></span>
+
+                    <span className="text-[#444763] font-bold text-[14px] md:text-[24px]">
                       {formateHour(item.arrivalDate)}
                     </span>
                   </div>
-                  <div className="grid grid-cols-8 w-[600px] mr-0 ml-0">
-                    <span className="text-[#8392a7] font-bold text-[14px] col-span-2">
+                  <div className="grid grid-cols-8 w-full mr-0 ml-0">
+                    <span className="text-[#8392a7] font-bold text-[11px] md:text-[14px]  col-span-2">
                       {formattedDate(item.departureDate)}
                     </span>
-                    <span className="text-[#8392a7] font-bold text-[14px] col-span-4 text-center">
+                    <span className="text-[#8392a7] font-bold text-[11px] md:text-[14px] col-span-4 text-center">
                       Direkt
                     </span>
-                    <span className="text-[#8392a7] font-bold text-[14px] col-span-2 text-end">
+                    <span className="text-[#8392a7] font-bold text-[11px] md:text-[14px]  col-span-2 text-end">
                       {formattedDate(item.arrivalDate)}
                     </span>
                   </div>
                 </div>
-                <div className="flex gap-1 p-4 flex-col">
-                  <h6 className="text-[#8392a7] text-[14px] font-semibold ">
+                <div className="flex gap-1 mt-3 md:mt-0 md:p-4 flex-col ">
+                  <h6 className="text-[#8392a7]  text-[11px] md:text-[14px] font-semibold ">
                     Bilet ücreti
                   </h6>
-                  <p className="text-[#444763] text-[24px] font-bold">
+                  <p className="text-[#444763] text-14px md:text-[20px] font-bold">
                     TRY: 540.00
                   </p>
                   <div className="flex items-center gap-2">
@@ -205,7 +211,7 @@ const SearchTicket = () => {
                     item.emptyPlace.normalPeopleEmptyPlaceCount !== 0
                       ? "disabled:opacity-80 disabled:cursor-not-allowed bg-[#de2619]"
                       : "bg-emerald-500  hover:bg-emerald-600 duration-200 ease-linear"
-                  }  bottom-0 absolute right-0 rounded-br-3xl rounded-tl-3xl px-4 py-1 text-sm text-[#fff] group flex items-center justify-center`}
+                  }  bottom-0 absolute right-0 rounded-br-3xl rounded-tl-3xl px-4 py-1 text-xs md:text-sm text-[#fff] group flex items-center justify-center`}
                 >
                   <span
                     className={`${
@@ -285,9 +291,9 @@ const SearchTicket = () => {
                           onClick={() => {
                             setShowModal(false);
                             setShowSuccessMsg(false);
-                            router.replace("/")
+                            router.replace("/");
                           }}
-                          className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end text-xs hover:opacity-85 duration-200 ease-in"
+                          className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end  md:text-xs hover:opacity-85 duration-200 ease-in"
                         >
                           Tamam
                         </button>
