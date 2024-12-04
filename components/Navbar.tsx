@@ -1,7 +1,5 @@
 import Link from "next/link";
 import React from "react";
-// import Logo from "@/public/images/train.webp";
-// import Image from "next/image";
 import { IoTicket } from "react-icons/io5";
 import { FaTrainSubway } from "react-icons/fa6";
 const Navbar = () => {
@@ -9,7 +7,6 @@ const Navbar = () => {
     <nav className="max-w-6xl mx-auto p-8">
       <div className="flex items-center justify-between">
         <Link href={"/"} className="flex items-center gap-2">
-  
           <span className="bg-blue-500 rounded-full  w-10 h-10 flex items-center justify-center">
             <FaTrainSubway className="text-white" size={18} />
           </span>
@@ -19,8 +16,13 @@ const Navbar = () => {
         </Link>
         <div>
           <div className="flex items-center gap-2">
-            <IoTicket className="text-blue-500" size={18}/>
-            <Link href={"/ticket"} className="text-sm  text-slate-600 font-semibold tracking-wide">Biletlerim</Link>
+            <IoTicket className="text-blue-500" size={18} />
+            <Link
+              href={"/my-tickets"}
+              className="text-sm  text-slate-600 font-semibold tracking-wide"
+            >
+              Biletlerim
+            </Link>
           </div>
         </div>
       </div>
