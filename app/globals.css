@@ -101,7 +101,7 @@ body {
 
 .tickets::before {
   content: "";
-  display: block; /* Görünür hale getirildi */
+  display: inline-block; /* Görünür hale getirildi */
   border-radius: 50%; /* Tam yuvarlak yapı için */
   width: 24px; /* Eni ve boyu eşit */
   height: 24px;
@@ -121,7 +121,7 @@ body {
 
 .tickets::after {
   content: "";
-  display: none;
+  display: inline-block;
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -142,8 +142,5 @@ body {
   .seferDepartureArrival::after {
     display: inline-block; /* Bu boyutlarda göster */
   }
-  .tickets::before,
-  .tickets::after {
-    display: inline-block;
-  }
+  
 }
