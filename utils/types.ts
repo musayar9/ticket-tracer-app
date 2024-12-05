@@ -36,3 +36,16 @@ export type SearchTicketType = {
   departureStationID: number;
   arrivalStationID: number;
 };
+
+export type SelectedTrains = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  departure_station: string;
+  departure_date: string;
+  arrival_station: string;
+  arrival_date: string;
+  email: string;
+  status: string;
+  total_attempt: number;
+};

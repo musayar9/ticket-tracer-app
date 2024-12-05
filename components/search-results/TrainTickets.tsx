@@ -18,22 +18,22 @@ item:SearchTicketType
 
 
 const TrainTickets:React.FC<TrainTicketsProps> = ({item, isSelected}) => {
-  const {selectedTrains, setSelectedTrains} = useGlobalContext()
+  const {selectTrain, setSelectTrain} = useGlobalContext()
 
   const handleSelectTrain = (train: SearchTicketType) => {
     if (
-      selectedTrains.some(
+      selectTrain.some(
         (selectedTrain) => selectedTrain.trainID === train.trainID
       )
     ) {
-      setSelectedTrains(
-        selectedTrains.filter(
+      setSelectTrain(
+        selectTrain.filter(
           (selectedTrain) => selectedTrain.trainID !== train.trainID
         )
       );
     } else {
-      if (selectedTrains.length < 3) {
-        setSelectedTrains([...selectedTrains, train]);
+      if (selectTrain.length < 3) {
+       setSelectTrain([...selectTrain, train]);
       } else {
         toast.error("En fazla 3 sefer seçebilirsiniz");
       }

@@ -10,7 +10,7 @@ type SendMailProps = {
 };
 
 const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
-  const { email, setEmail, selectedTrains } = useGlobalContext();
+  const { email, setEmail, selectTrain } = useGlobalContext();
   const [emailError, setEmailError] = useState("");
 
   const handleEmailValidation = () => {
@@ -33,7 +33,7 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
 
   const handleAddedTicket = async () => {
     if (handleEmailValidation()) {
-      const selectedTickets = selectedTrains.map((train) => ({
+      const selectedTickets = selectTrain.map((train) => ({
         trainID: train.trainID,
         tourID: train.tourID,
         gidisTarih: train.departureDate,

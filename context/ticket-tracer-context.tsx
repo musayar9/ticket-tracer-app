@@ -1,6 +1,6 @@
 "use client";
 
-import { SearchTicketType } from "@/utils/types";
+import { SearchTicketType, SelectedTrains } from "@/utils/types";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
 
@@ -13,10 +13,12 @@ type TicketContextType = {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
-  selectedTrains: SearchTicketType[];
-  setSelectedTrains: React.Dispatch<React.SetStateAction<SearchTicketType[]>>;
+  selectTrain: SearchTicketType[];
+  setSelectTrain: React.Dispatch<React.SetStateAction<SearchTicketType[]>>;
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTrainTickets:SelectedTrains[] | undefined;
+  setSelectedTrainTickets:React.Dispatch<React.SetStateAction<SelectedTrains[]>>
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
@@ -27,8 +29,12 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
   >(undefined);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const [selectedTrains, setSelectedTrains] = useState<SearchTicketType[]>([]);
+  const [selectTrain, setSelectTrain] = useState<SearchTicketType[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [selectedTrainTickets, setSelectedTrainTickets] = useState<
+    SelectedTrains[]
+  >([]);
+  
   const value = {
     searchTicket,
     setSearchTicket,
@@ -36,10 +42,11 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
     setLoading,
     email,
     setEmail,
-    selectedTrains,
-    setSelectedTrains,
+    selectTrain,
+    setSelectTrain,
     showModal,
     setShowModal,
+   selectedTrainTickets, setSelectedTrainTickets
   };
 
   return (
