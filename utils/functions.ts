@@ -70,3 +70,19 @@ export const formattedDate = (value: string): string => {
 
   return formatDate;
 };
+
+
+export const getFormatDay = ()=>{
+
+
+
+  const dateString = "Dec 5, 2024 01:00:00 PM";
+
+
+  const date = new Date(dateString);
+
+
+  const day = format(date, "EEEE");
+
+return day
+}

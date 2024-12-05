@@ -22,8 +22,8 @@ const MyTickets = () => {
 
             <div className="flex flex-col items-center  md:col-span-4 ">
               <div className="flex flew-wrap text-[12px] font-semibold text-slate-500 ">
-                <p className="truncate">İstanbul(Söğütlüçeşme) </p>-
-                <p className="truncate"> ERYAMAN</p>
+                <p className="truncate">{train.departure_station} </p>-
+                <p className="truncate"> {train.arrival_station}</p>
               </div>
               <p className="flex  text-[12px] font-semibold text-slate-500 truncate">
                 <span>Perşembe - </span> <span> 10:00</span>
@@ -43,9 +43,9 @@ const MyTickets = () => {
             <div className="flex items-center justify-center gap-4 md:gap-8 md:col-span-4">
               <p className="flex flex-col items-center">
                 <span className="text-xs font-semibold text-slate-500">
-                  TRN CODE
+                 Toplam Deneme
                 </span>
-                <span className="text-xs text-slate-600">81030</span>
+                <span className="text-xs text-slate-600">{train.total_attempt}</span>
               </p>
               <p className="flex flex-col items-center">
                 <span className="text-xs font-semibold text-slate-500">
@@ -61,8 +61,12 @@ const MyTickets = () => {
               </p>
             </div>
 
-            <p className="self-end md:self-auto md:col-span-2 text-end text-[14px] text-red-600 font-[600]">
-              Pending
+            <p className="self-end md:self-auto md:col-span-2 text-end text-[14px]  font-[600]">
+              {train.status === "FOUND" ? (
+                <span className="text-emerald-600">Bulundu</span>
+              ) : (
+                <span className="text-red-600">Bekleniyor</span>
+              )}
             </p>
           </div>
 
