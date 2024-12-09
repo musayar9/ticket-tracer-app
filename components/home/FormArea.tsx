@@ -8,6 +8,8 @@ import { formatCustomDate } from "@/utils/functions";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
 import { useRouter } from "next/navigation";
 import { IoWarning } from "react-icons/io5";
+import { FaCircleArrowRight, FaTrain } from "react-icons/fa6";
+import { GiTicket } from "react-icons/gi";
 
 type FormAreaProps = {
   data: Station[];
@@ -25,6 +27,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [error, setError] = useState(false);
+  const [buyTickets, setBuyTickets] = useState(true);
 
   const handleFromStationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -113,54 +116,104 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
   }, [error, errorMessage]);
 
   return (
-    <div className="py-4 space-y-3">
-      <h3 className="text-slate-600 text-center text-2xl font-semibold">
-        Tren <span className="text-slate-700">Bileti</span> Sorgulama
-      </h3>
-      <form onSubmit={handleSubmit}>
-        <div className="flex  flex-col md:flex-row  items-center justify-center gap-4">
-          <FormSelect
-            item={fromStationData}
-            onChange={handleFromStationChange}
-            label={"Gidiş Yeri"}
-            selectedValue={"Gidiş Yerini Seçin"}
-            value={fromStation}
-            error={error}
-          />
-          <FormSelect
-            item={toStations}
-            label="Varış Yeri"
-            selectedValue="Varış Yerini Seçin"
-            onChange={handleToStationChange}
-            value={toStation}
-            checkFromStation={isFromStation}
-            error={error}
-          />
+    <div className=" space-y-2">
+      <div className="flex items-center justify-between   border-b border-slate-300 pb-1 ">
+        <div
+          className={`${
+            buyTickets && "border-b-2 border-red-600  "
+          }  flex items-center justify-center w-full -mb-1 cursor-pointer`}
+          onClick={() => setBuyTickets(true)}
+        >
+          <div className="pb-2 flex items-center flex-col gap-1">
+            <FaTrain size={18} className={`${buyTickets && "text-red-600"}`} />
+            <p
+              className={`${
+                buyTickets ? "text-red-600 font-semibold" : "text-slate-600"
+              } text-sm `}
+            >
+              Bilet Al{" "}
+            </p>
+          </div>
         </div>
-        <div className="flex  flex-col  items-center justify-center gap-4 mt-4 md:mt-0">
-          <FormInput
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            minDate={new Date()}
-            label={"Gidiş Tarihi"}
-            error={error}
-          />
+        <div className="border-r h-12 pb-4 -mt-3 border-slate-200"></div>
+        <div
+          className={`${
+            !buyTickets && "border-b-2 border-red-600  "
+          }  flex items-center justify-center w-full -mb-2 cursor-pointer`}
+          onClick={() => setBuyTickets(false)}
+        >
+          <div className="pb-2 flex items-center flex-col gap-1">
+            <GiTicket
+              size={18}
+              className={`${!buyTickets && "text-red-600"}`}
+            />
+            <p
+              className={`${
+                !buyTickets ? "text-red-600 font-semibold" : "text-slate-600"
+              } text-sm `}
+            >
+              Biletlerim
+            </p>
+          </div>
+        </div>
+      </div>
 
-          <button
-            disabled={loading}
-            type="submit"
-            className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border rounded-lg mt-4  font-semibold text-[#fff] bg-[#de2619] hover:bg-[#dc3545]
+      {buyTickets ? (
+        <>
+          <div className="text-slate-600  flex items-center gap-2 pl-1 pt-3 ">
+            <FaCircleArrowRight className="text-[#003aa6]" size={18} />
+            <p className="text-[#003aa6] text-[15px] font-[600] ">Tek Yön</p>
+          </div>
+          <form onSubmit={handleSubmit} className="-mt-4">
+            <div className="flex  flex-col md:flex-row  items-center justify-center gap-4">
+              <FormSelect
+                item={fromStationData}
+                onChange={handleFromStationChange}
+                label={"Gidiş Yeri"}
+                selectedValue={"Gidiş Yerini Seçin"}
+                value={fromStation}
+                error={error}
+              />
+              <FormSelect
+                item={toStations}
+                label="Varış Yeri"
+                selectedValue="Varış Yerini Seçin"
+                onChange={handleToStationChange}
+                value={toStation}
+                checkFromStation={isFromStation}
+                error={error}
+              />
+            </div>
+            <div className="flex  flex-col  items-center justify-center gap-4 mt-4 md:mt-0">
+              <FormInput
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                minDate={new Date()}
+                label={"Gidiş Tarihi"}
+                error={error}
+              />
+
+              <button
+                disabled={loading}
+                type="submit"
+                className="disabled:cursor-not-allowed disabled:opacity-85 w-full px-4 py-2 border rounded-lg mt-4  font-semibold text-[#fff] bg-[#de2619] hover:bg-[#dc3545]
 transition  duration-200 ease-linear "
-          >
-            {loading ? "Yükleniyor" : "Sefer Ara"}
-          </button>
-        </div>
-      </form>
-      {errorMessage && error && (
-        <div role="alert" className="alert alert-error">
-          <IoWarning className="text-yellow-400" />
-          <span className="text-white text-xs">{errorMessage}</span>
-        </div>
+              >
+                {loading ? "Yükleniyor" : "Sefer Ara"}
+              </button>
+            </div>
+          </form>
+          {errorMessage && error && (
+            <div role="alert" className="alert alert-error">
+              <IoWarning className="text-yellow-400" />
+              <span className="text-white text-xs">{errorMessage}</span>
+            </div>
+          )}
+        </>
+      ) : (
+        <>
+          <p>Biletlerim</p>
+        </>
       )}
     </div>
   );

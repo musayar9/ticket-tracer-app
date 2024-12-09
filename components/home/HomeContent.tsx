@@ -21,7 +21,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
   }, [pathname, setLoading]);
 
   return (
-    <section className="max-w-lg mx-auto  shadow-xl   bg-white p-8 rounded-lg">
+    <section className="max-w-lg mx-auto  shadow-xl   bg-white p-8 rounded-xl">
       <FormArea data={data} />
     </section>
   );

@@ -1,18 +1,20 @@
 "use client";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
-import {  FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
 import CheckTrain from "@/components/search-results/CheckTrain";
 import TrainTickets from "@/components/search-results/TrainTickets";
 import TrainTicketsModal from "@/components/search-results/TrainTicketsModal";
 const SearchTicket = () => {
-  const { searchTicket,  selectTrain, showModal, setShowModal } = useGlobalContext();
+  const { searchTicket, selectTrain, showModal, setShowModal } =
+    useGlobalContext();
   if (!searchTicket || searchTicket.length === 0) {
     return <CheckTrain />;
   }
 
-  return ( 
-  //max-w-[1200px]
+  return (
+    //max-w-[1200px]
     <div className="max-w-6xl w-full mx-auto p-2 md:p-8 ">
+
       <div className=" p-8 ">
         <div className="px-4 flex items-center justify-center ">
           <div className="text-lg md:text-xl lg:text-3xl flex flex-wrap items-center justify-center font-semibold gap-3">
@@ -50,9 +52,7 @@ const SearchTicket = () => {
             </button>
           )}
         </>
-        {showModal && (
-          <TrainTicketsModal/>
-        )}
+        {showModal && <TrainTicketsModal />}
       </div>
     </div>
   );
