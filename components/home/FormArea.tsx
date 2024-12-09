@@ -15,7 +15,10 @@ type FormAreaProps = {
   data: Station[];
 };
 
+
+
 const FormArea: React.FC<FormAreaProps> = ({ data }) => {
+  console.log("dats", data);
   const { setLoading, loading, setSearchTicket } = useGlobalContext();
   const router = useRouter();
   const [fromStation, setFromStation] = useState("");
