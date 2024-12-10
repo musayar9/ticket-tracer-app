@@ -110,8 +110,8 @@ body {
   bottom: -12px;
   /* background-color: #e8ecf0; */
   /* background: linear-gradient(0deg, #e8ecf0 50%); */
-    background-color: transparent !important;
-    background: -o-linear-gradient(
+  background-color: transparent !important;
+  background: -o-linear-gradient(
     bottom,
     rgba(255, 255, 255, 0) 49%,
     #e8ecf0 50%
@@ -128,8 +128,8 @@ body {
   position: absolute;
   left: -30px;
   bottom: -12px;
- background-color: transparent !important;
-    background: -o-linear-gradient(
+  background-color: transparent !important;
+  background: -o-linear-gradient(
     bottom,
     rgba(255, 255, 255, 0) 49%,
     #e8ecf0 50%
@@ -137,10 +137,23 @@ body {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 49%, #e8ecf0 50%);
 }
 
+/* .dropdown-menu::before {
+  content: "";
+  display: flex;
+  position: absolute;
+  transform: rotate(180deg);
+  left: 98px;
+  top: -13px;
+  border: 15px solid;
+
+  border-color: #d1d5db transparent transparent transparent;
+
+  z-index: 1;
+} */
+
 @media (min-width: 768px) {
   .seferDepartureArrival::before,
   .seferDepartureArrival::after {
     display: inline-block; /* Bu boyutlarda göster */
   }
-  
 }
