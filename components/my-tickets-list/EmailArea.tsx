@@ -1,7 +1,8 @@
 "use client";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
-import customFetch from "@/utils/axios";
-import axios from "axios";
+import { ticketRequest } from "@/utils/api";
+// import customFetch from "@/utils/axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -31,22 +32,13 @@ const EmailArea = () => {
     e.preventDefault();
 
     if (handleEmailValidation()) {
-      try {
+   
         setLoading(true);
-        const res = await customFetch.get(`/ticket-request/mail/${email}`);
-        console.log(res);
-        const data = await res.data;
-        console.log(data);
+        const data = await ticketRequest({email})
+        console.log(data)
         setSelectedTrainTickets(data);
         setLoading(false);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.log(error.response?.statusText);
-        } else {
-          console.log("Request is failed");
-        }
-        setLoading(false);
-      }
+  
     }
   };
   console.log(emailError, "emailError");
@@ -54,7 +46,7 @@ const EmailArea = () => {
   return (
     <div className="p-4 bg-[#fff] rounded-2xl shadow-lg">
       <h3 className="text-slate-600  text-lg md:text-2xl px-4 py-2">
-        Enter your email to view your tickets
+        Biletlerinizi görüntülemek için e-postanızı girin
       </h3>
       <div className="px-3 py-2">
         <form className="relative " onSubmit={handleSubmit}>

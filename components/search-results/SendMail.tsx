@@ -6,6 +6,7 @@ import { IoMdFemale, IoMdMale } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import FormInput from "../FormInput";
 import Gender from "./Gender";
+import axios from "axios";
 
 type SendMailProps = {
   setShowSuccessMsg: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +14,12 @@ type SendMailProps = {
 
 const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
   const { email, setEmail, selectTrain } = useGlobalContext();
+  const [formatData, setFormatData] = useState({
+    name: "",
+    lastName: "",
+    birthDate: "",
+    phone: "",
+  });
   const [emailError, setEmailError] = useState("");
   const [gender, setGender] = useState("");
   const [male, setMale] = useState(false);
@@ -35,8 +42,31 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
       }, 3000);
     }
   }, [emailError]);
+  const handleMale = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(e.target.value);
+    setMale(!male);
+    setWomen(false);
+  };
 
+  const handleWomen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(e.target.value);
+    setMale(false);
+    setWomen(!women);
+  };
   const handleAddedTicket = async () => {
+    const missingFields = [];
+    if (!formatData.name) missingFields.push("İsim");
+    if (!formatData.lastName) missingFields.push("Soyisim");
+    if (!formatData.phone) missingFields.push("Telefton");
+    if (!formatData.birthDate) missingFields.push("Doğum Tarihi");
+
+    if (missingFields.length > 0) {
+      setEmailError(
+        `Lütfen aşağıdaki alanları doldurun: ${missingFields.join(", ")}`
+      );
+      return;
+    }
+
     if (handleEmailValidation()) {
       const selectedTickets = selectTrain.map((train) => ({
         trainID: train.trainID,
@@ -47,6 +77,7 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
         arrivalStationID: train.arrivalStationID,
         gender: gender,
       }));
+      console.log("selected ", selectedTickets);
 
       try {
         const res = await customFetch.post("/v2/tcdd/add", {
@@ -55,44 +86,84 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
         console.log(res, "res");
         setShowSuccessMsg(true);
       } catch (error) {
-        console.log(error);
-
-        toast.error("ekleme sırasında bir hata oluştu");
+        if (axios.isAxiosError(error)) {
+          console.log(error);
+          toast.error(error?.response?.data.errorMessage);
+          return error.response?.data.errorMessage;
+        } else {
+          return "Request failed";
+        }
       }
     }
   };
 
-  console.log("fender", gender);
-  const handleMale = (e:React.ChangeEvent<HTMLInputElement>)=>{
-   setGender(e.target.value);
-   setMale(!male);
-   setWomen(false);
-  
-  }
-  
-  const handleWomen =   (e:React.ChangeEvent<HTMLInputElement>)=>{
-  setGender(e.target.value);
-  setMale(false);
-  setWomen(!women);
-  }
+  console.log("formatDat", formatData);
+  console.log("selected");
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-center">
-        <MdEmail className="bg-emerald-700 w-20 h-20 text-white rounded-full p-4 " />
-      </div>
+    <div className="space-y-2">
+      <h2>Kişisel Bilgiler</h2>
 
       <>
-        <FormInput
-          value={email}
-          name={"email"}
-          type={"text"}
-          error={emailError}
-          onChange={(e) => setEmail(e.target.value)}
-          label={"e-mail"}
-          placeholder="E-mail Adresinizi Girin"
-        />
+        <div className="flex items-center justify-between gap-2">
+          <FormInput
+            value={formatData.name}
+            name={"name"}
+            type={"text"}
+            error={emailError}
+            onChange={(e) =>
+              setFormatData({ ...formatData, name: e.target.value })
+            }
+            label={"Ad"}
+            placeholder="Adınızı  Girin"
+          />
+          <FormInput
+            value={formatData.lastName}
+            name={"lastName"}
+            type={"text"}
+            error={emailError}
+            onChange={(e) =>
+              setFormatData({ ...formatData, name: e.target.value })
+            }
+            label={"Soyad"}
+            placeholder="Soyadınızı Girin"
+          />
+          <FormInput
+            value={formatData.birthDate}
+            name={"birthDate"}
+            type={"date"}
+            error={emailError}
+            onChange={(e) =>
+              setFormatData({ ...formatData, name: e.target.value })
+            }
+            label={"Doğum Tarihi"}
+            placeholder="Doğum Tarihiniz Girin"
+          />
+        </div>
+        <div className="flex items-center justify-between gap-2">
+          <FormInput
+            value={email}
+            name={"email"}
+            type={"text"}
+            error={emailError}
+            onChange={(e) => setEmail(e.target.value)}
+            label={"e-mail"}
+            placeholder="E-mail Adresinizi Girin"
+          />
+          <FormInput
+            value={formatData.birthDate}
+            name={"phone"}
+            type="text"
+            minLength={11}
+            error={emailError}
+            onChange={(e) =>
+              setFormatData({ ...formatData, name: e.target.value })
+            }
+            label={"Telefon"}
+            placeholder="Telefon Numaranızı  Girin"
+          />
+        </div>
+
         <div className="flex items-center justify-center gap-4">
- 
           <Gender
             value="M"
             gender={male}
@@ -107,7 +178,6 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
             icon={<IoMdFemale />}
             onChange={handleWomen}
           />
-
         </div>
 
         {emailError && (

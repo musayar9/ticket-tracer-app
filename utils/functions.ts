@@ -1,15 +1,23 @@
 import { formatInTimeZone } from "date-fns-tz";
-import { addDays, differenceInMinutes, format, setHours, setMinutes, setSeconds } from "date-fns";
+import {
+  addDays,
+  differenceInMinutes,
+  format,
+  setHours,
+  setMinutes,
+  setSeconds,
+} from "date-fns";
+import { tr } from "date-fns/locale";
 export const formatCustomDate = (dateString: string): string => {
-const date = new Date(dateString);
-const now = new Date(); 
-const newDate = addDays(date, 0);
-const finalDate = setSeconds(
-  setMinutes(setHours(newDate, now.getHours()), now.getMinutes()),
-  now.getSeconds()
-);
+  const date = new Date(dateString);
+  const now = new Date();
+  const newDate = addDays(date, 0);
+  const finalDate = setSeconds(
+    setMinutes(setHours(newDate, now.getHours()), now.getMinutes()),
+    now.getSeconds()
+  );
 
-return format(finalDate, "dd-MM-yyyy HH:mm:ss");
+  return format(finalDate, "dd-MM-yyyy HH:mm:ss");
 };
 
 export const formateHour = (dateString: string): string => {
@@ -58,18 +66,10 @@ export const formattedDate = (value: string): string => {
   return formatDate;
 };
 
-
-export const getFormatDay = ()=>{
-
-
-
-  const dateString = "Dec 5, 2024 01:00:00 PM";
-
-
+export const getFormatDay = (dateString: string): string => {
   const date = new Date(dateString);
 
+  const day = format(date, "EEEE", { locale: tr });
 
-  const day = format(date, "EEEE");
-
-return day
-}
+  return day;
+};

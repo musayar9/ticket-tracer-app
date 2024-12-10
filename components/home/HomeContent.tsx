@@ -10,13 +10,14 @@ type HomeContentProps = {
   data: Station[];
 };
 const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
-  const { setLoading } = useGlobalContext();
+  const { setLoading, setEmail } = useGlobalContext();
   const pathname = usePathname();
   console.log("pathname", pathname);
 
   useEffect(() => {
     if (pathname === "/") {
       localStorage.removeItem("ticket");
+      setEmail("")
       setLoading(false);
     }
   }, [pathname, setLoading]);

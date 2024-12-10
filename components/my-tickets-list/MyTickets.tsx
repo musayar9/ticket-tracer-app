@@ -1,5 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
+import { formateHour, formattedDate, getFormatDay } from "@/utils/functions";
 import React from "react";
 import { FaTrainSubway } from "react-icons/fa6";
 
@@ -26,38 +27,45 @@ const MyTickets = () => {
                 <p className="truncate"> {train.arrival_station}</p>
               </div>
               <p className="flex  text-[12px] font-semibold text-slate-500 truncate">
-                <span>Perşembe - </span> <span> 10:00</span>
+                <span>{getFormatDay(train.departure_date)} - </span>{" "}
+                <span>{formateHour(train.departure_date)}</span>
               </p>
             </div>
 
             <p className="self-end md:self-auto  md:col-span-2 text-end text-[14px] md:text-[17px] font-semibold text-slate-600">
-              04-12-2024
+              {formattedDate(train.departure_date)}
             </p>
           </div>
 
           <div className="flex flex-col  items-center justify-start gap-3 sm:gap-4   md:grid md:grid-cols-8 p-4 border-b-2 border-slate-400 ">
             <p className="md:col-span-2 text-slate-700 text-sm font-semibold">
-              musasayar67@gmail.com
+              {train.email}
             </p>
 
             <div className="flex items-center justify-center gap-4 md:gap-8 md:col-span-4">
               <p className="flex flex-col items-center">
                 <span className="text-xs font-semibold text-slate-500">
-                 Toplam Deneme
+                  Toplam Deneme
                 </span>
-                <span className="text-xs text-slate-600">{train.total_attempt}</span>
+                <span className="text-xs text-slate-600">
+                  {train.total_attempt}
+                </span>
               </p>
               <p className="flex flex-col items-center">
                 <span className="text-xs font-semibold text-slate-500">
                   Kalkış
                 </span>
-                <span className="text-xs text-slate-600">10:00</span>
+                <span className="text-xs text-slate-600">
+                  {formateHour(train.departure_date)}
+                </span>
               </p>
               <p className="flex flex-col items-center">
                 <span className="text-xs font-semibold text-slate-500">
                   Varış
                 </span>
-                <span className="text-xs text-slate-600">13:00</span>
+                <span className="text-xs text-slate-600">
+                  {formateHour(train.arrival_date)}
+                </span>
               </p>
             </div>
 
@@ -72,10 +80,10 @@ const MyTickets = () => {
 
           <div className="flex items-center justify-between p-4">
             <p className="text-[14px] text-slate-700 font-semibold ">
-              Toplam Tutar:
+              Cinsiyet
             </p>
             <p className="text-[14px] md:text-[17px] text-slate-700 font-semibold ">
-              TRY 540.00
+              {train.gender === "M" ?  "Erkek" : "Kadın"}
             </p>
           </div>
         </div>

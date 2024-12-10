@@ -123,10 +123,10 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
 
   return (
     <div className="p-2 space-y-2">
-      <div className="flex items-center justify-between   border-b border-slate-300 pb-1 ">
+      <div className="flex items-center justify-between relative  border-b border-slate-300 pb-1 ">
         <div
           className={`${
-            buyTickets && "border-b-2 border-red-600  "
+            buyTickets && "border-b-2 border-red-600 buyTicket left-[98px] "
           }  flex items-center justify-center w-full -mb-1 cursor-pointer`}
           onClick={() => setBuyTickets(true)}
         >
@@ -144,8 +144,8 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
         <div className="border-r h-12 pb-4 -mt-3 border-slate-200"></div>
         <div
           className={`${
-            !buyTickets && "border-b-2 border-red-600  "
-          }  flex items-center justify-center w-full -mb-2 cursor-pointer`}
+            !buyTickets && "border-b-2 border-red-600  buyTicket right-[98px]"
+          }  flex items-center justify-center w-full -mb-1 cursor-pointer`}
           onClick={() => setBuyTickets(false)}
         >
           <div className="pb-2 flex items-center flex-col gap-1">

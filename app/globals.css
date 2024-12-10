@@ -154,12 +154,40 @@ body {
   content: "";
   display: flex;
   position: absolute;
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
   left: 98px;
-  top: -13px;
-  border-width: 15px;
+  top: 50px;
+  border-width: 10px;
   border-style: solid;
-  border-color: #eedede transparent transparent transparent;
+  border-color:  transparent transparent #dc2626 transparent ;
+  background-clip: padding-box;
+  z-index: 1;
+}
+
+.buyTicket::before{
+  content: "";
+  display: flex;
+  position: absolute;
+  transform: rotate(-180deg);
+
+  top: 50px;
+  border-width: 10px;
+  border-style: solid;
+  border-color:  transparent transparent #dc2626 transparent ;
+  background-clip: padding-box;
+  z-index: 1;
+}
+
+.myTicket::before{
+  content: "";
+  display: flex;
+  position: absolute;
+  transform: rotate(-180deg);
+  right:  98px;
+  top: 50px;
+  border-width: 10px;
+  border-style: solid;
+  border-color:  transparent transparent #dc2626 transparent ;
   background-clip: padding-box;
   z-index: 1;
 }

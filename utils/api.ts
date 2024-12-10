@@ -30,4 +30,16 @@ export const searchTrain = async (requestBody: RequestBody) => {
   }
 };
 
-
+export const ticketRequest = async ({ email }: { email: string }) => {
+  try {
+    const res = await customFetch.get(`/ticket-request/mail/${email}`);
+    const data = await res.data;
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response?.data.message;
+    } else {
+      return "Request failed";
+    }
+  }
+};

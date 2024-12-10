@@ -6,9 +6,10 @@ type FormInputProps = {
   minDate?: Date;
   label: string;
   error: boolean | string;
-  type:string;
-  name:string;
-  placeholder?:string
+  type: string;
+  name: string;
+  placeholder?: string;
+  minLength?: number;
 };
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -17,20 +18,16 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   minDate,
   error,
-  name, type,
-  placeholder
+  name,
+  type,
+  placeholder,
+  minLength,
 }) => {
   const minDateString = minDate?.toISOString().split("T")[0];
   return (
     <label className="form-control w-full ">
       <div className="label">
-        <span
-          className={`${
-            type === "text" && "capitalize text-xl text-slate-700"
-          } label-text`}
-        >
-          {label}
-        </span>
+        <span className={"label-text capitalize"}>{label}</span>
       </div>
       <input
         name={name}
@@ -38,7 +35,7 @@ const FormInput: React.FC<FormInputProps> = ({
         className={` input input-bordered w-full  ${error && " input-error"}`}
         value={value}
         onChange={onChange}
-        min={minDateString}
+        min={type === "date" ? minDateString : minLength}
         placeholder={placeholder}
       />
     </label>
