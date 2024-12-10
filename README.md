@@ -173,3 +173,50 @@ export default FormArea;
 ```
  v23 tccdd query servisinde ekranda kullnaıcı 14 seçtiyse gönderilecek tarih 13 aralık  ,
  erkek için m kadın için g
+ 
+ ````js
+ import axios from 'axios';
+import customFetch from './customFetch'; 
+import { toast } from 'react-toastify';
+
+export const searchTrain = async (requestBody: RequestBody, setShowSuccessMsg: (value: boolean) => void) => {
+  try {
+    const response = await customFetch.post("/v2/tcdd/query", requestBody);
+    console.log(response.data);
+    setShowSuccessMsg(true); 
+    return response.data.details;
+  } catch (error) {
+    console.log(error);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message || "Request failed");
+      return error.response?.data.message;
+    } else {
+      toast.error("Request failed");
+      return "Request failed";
+    }
+  }
+};
+
+
+
+import React, { useState } from 'react';
+import { searchTrain } from './api';
+const TrainSearchComponent = () => {
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
+  const [requestBody, setRequestBody] = useState<RequestBody>({}); 
+  const handleSearch = async () => {
+    const result = await searchTrain(requestBody, setShowSuccessMsg);
+    console.log(result);
+  };
+
+  return (
+    <div>
+ 
+      {showSuccessMsg && <p>Başarıyla sorgulandı!</p>}
+      <button onClick={handleSearch}>Tren Ara</button>
+    </div>
+  );
+};
+
+export default TrainSearchComponent;
+ ```

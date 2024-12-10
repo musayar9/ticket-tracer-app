@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { IoWarning } from "react-icons/io5";
 import { FaCircleArrowRight, FaTrain } from "react-icons/fa6";
 import { GiTicket } from "react-icons/gi";
+import SearchMyTickets from "./SearchMyTickets";
 
 type FormAreaProps = {
   data: Station[];
@@ -196,6 +197,8 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 minDate={new Date()}
                 label={"Gidiş Tarihi"}
                 error={error}
+                type="date"
+                name={"date"}
               />
 
               <button
@@ -216,9 +219,7 @@ transition  duration-200 ease-linear "
           )}
         </>
       ) : (
-        <>
-          <p>Biletlerim</p>
-        </>
+      <SearchMyTickets/>
       )}
     </div>
   );

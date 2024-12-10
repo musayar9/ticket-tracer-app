@@ -1,17 +1,22 @@
-import { useGlobalContext } from '@/context/ticket-tracer-context';
-import customFetch from '@/utils/axios';
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
-import { MdEmail } from 'react-icons/md';
-
+import { useGlobalContext } from "@/context/ticket-tracer-context";
+import customFetch from "@/utils/axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { IoMdFemale, IoMdMale } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
+import FormInput from "../FormInput";
+import Gender from "./Gender";
 
 type SendMailProps = {
   setShowSuccessMsg: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
+const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
   const { email, setEmail, selectTrain } = useGlobalContext();
   const [emailError, setEmailError] = useState("");
+  const [gender, setGender] = useState("");
+  const [male, setMale] = useState(false);
+  const [women, setWomen] = useState(false);
 
   const handleEmailValidation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +45,7 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
         email,
         departureStationID: train.departureStationID,
         arrivalStationID: train.arrivalStationID,
-        gender:"M"
+        gender: gender,
       }));
 
       try {
@@ -56,6 +61,20 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
       }
     }
   };
+
+  console.log("fender", gender);
+  const handleMale = (e:React.ChangeEvent<HTMLInputElement>)=>{
+   setGender(e.target.value);
+   setMale(!male);
+   setWomen(false);
+  
+  }
+  
+  const handleWomen =   (e:React.ChangeEvent<HTMLInputElement>)=>{
+  setGender(e.target.value);
+  setMale(false);
+  setWomen(!women);
+  }
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-center">
@@ -63,21 +82,34 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
       </div>
 
       <>
-        <div className="relative">
-          <input
-            name="email"
-            value={email}
-            type="text"
-            placeholder="E-mail Adresiniz Girin"
-            className=" peer w-full  flex px-2.5 pb-2.5 pt-4 text-sm bg-transparent rounded-md border-2 border-emerald-600 appearance-none  
-                  focus:ring-0 focus:border-emerald-600 placeholder:capitalize outline-none"
-            onChange={(e) => setEmail(e.target.value)}
+        <FormInput
+          value={email}
+          name={"email"}
+          type={"text"}
+          error={emailError}
+          onChange={(e) => setEmail(e.target.value)}
+          label={"e-mail"}
+          placeholder="E-mail Adresinizi Girin"
+        />
+        <div className="flex items-center justify-center gap-4">
+ 
+          <Gender
+            value="M"
+            gender={male}
+            label={"Erkek"}
+            icon={<IoMdMale />}
+            onChange={handleMale}
+          />
+          <Gender
+            value="W"
+            gender={women}
+            label={"Kadın"}
+            icon={<IoMdFemale />}
+            onChange={handleWomen}
           />
 
-          <label className="flex  absolute text-sm   bg-base-100  capitalize duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-emerald-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-            E-mail Addresinizi Girin
-          </label>
         </div>
+
         {emailError && (
           <p className="alert alert-error rounded-lg px-4 py-2 text-xs text-white my-4">
             {emailError}
@@ -96,4 +128,4 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
   );
 };
 
-export default SendMail
+export default SendMail;

@@ -3,7 +3,6 @@
 import { SearchTicketType, SelectedTrains } from "@/utils/types";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
-
 type TicketContextType = {
   searchTicket: SearchTicketType[] | undefined;
   setSearchTicket: React.Dispatch<
@@ -17,8 +16,10 @@ type TicketContextType = {
   setSelectTrain: React.Dispatch<React.SetStateAction<SearchTicketType[]>>;
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedTrainTickets:SelectedTrains[] | undefined;
-  setSelectedTrainTickets:React.Dispatch<React.SetStateAction<SelectedTrains[]>>
+  selectedTrainTickets: SelectedTrains[] | undefined;
+  setSelectedTrainTickets: React.Dispatch<
+    React.SetStateAction<SelectedTrains[]>
+  >;
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
@@ -34,7 +35,7 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTrainTickets, setSelectedTrainTickets] = useState<
     SelectedTrains[]
   >([]);
-  
+
   const value = {
     searchTicket,
     setSearchTicket,
@@ -46,7 +47,8 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
     setSelectTrain,
     showModal,
     setShowModal,
-   selectedTrainTickets, setSelectedTrainTickets
+    selectedTrainTickets,
+    setSelectedTrainTickets,
   };
 
   return (
