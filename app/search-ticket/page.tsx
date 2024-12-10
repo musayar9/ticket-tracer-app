@@ -10,6 +10,7 @@ const SearchTicket = () => {
   if (!searchTicket || searchTicket.length === 0) {
     return <CheckTrain />;
   }
+  console.log(searchTicket, "setseearchTciket")
 
   return (
     //max-w-[1200px]
@@ -34,7 +35,7 @@ const SearchTicket = () => {
             );
             return (
               <TrainTickets
-                key={item.tourID}
+                key={item.trainID}
                 item={item}
                 isSelected={isSelected}
               />

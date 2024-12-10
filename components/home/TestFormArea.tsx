@@ -166,9 +166,9 @@ const TestFormArea = () => {
                   "url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMi40IDM4Ljk2Ij48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6I2ZmZjtzdHJva2U6I2Q5ZDlkOTtzdHJva2UtbWl0ZXJsaW1pdDoxMH08L3N0eWxlPjwvZGVmcz48ZyBpZD0iUG9seWdvbl8xMC0yIiBkYXRhLW5hbWU9IlBvbHlnb24gMTAtMiI+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMS42MSAyMS44MWEzLjAwMSAzLjAwMSAwIDAxMC00LjY3TDE2LjIyIDUuMzVhMy4wMDEgMy4wMDEgMCAwMTQuMjIuNDVjLjQzLjUzLjY3IDEuMi42NyAxLjg5djIzLjU5YzAgMS42Ni0xLjM0IDMtMyAzLS42OSAwLTEuMzUtLjI0LTEuODktLjY3TDEuNjEgMjEuODF6Ii8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMS41IDE5LjQ4YzAgLjYxLjI3IDEuMTcuNzQgMS41NmwxNC42MSAxMS44Yy42MS41IDEuNDEuNTkgMi4xMi4yNS43MS0uMzQgMS4xNC0xLjAyIDEuMTQtMS44VjcuNjhjMC0uNzktLjQzLTEuNDYtMS4xNC0xLjgtLjcxLS4zNC0xLjUtLjI1LTIuMTIuMjVMMi4yNCAxNy45MmMtLjQ3LjM4LS43NC45NS0uNzQgMS41Nm0tMSAwYzAtLjg3LjM3LTEuNzMgMS4xMS0yLjMzbDE0LjYxLTExLjhjMS45Ni0xLjU4IDQuODktLjE5IDQuODkgMi4zM3YyMy42YzAgMi41Mi0yLjkyIDMuOTItNC44OSAyLjMzTDEuNjEgMjEuODFDLjg3IDIxLjIxLjUgMjAuMzQuNSAxOS40OHoiLz48L2c+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE2LjUyIDBoNS44N3YzOC45NmgtNS44N3oiLz48L3N2Zz4=)",
               }}
             ></div> */}
-{/* <div className="dropdown-menu"></div> */}
+<div className="dropdown-menu"></div>
             
-            <div className="absolute top-1 left-1/2 mt-3 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 z-10  bg-white border-l border-t border-slate-300 rotate-45"></div>
+            {/* <div className="absolute top-1 left-1/2 mt-3 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 z-10  bg-white border-l border-t border-slate-300 rotate-45"></div> */}
             <div className="  absolute bg-white shadow-lg rounded-md border  border-slate-300 w-full mt-4 p-4 h-auto max-h-56 overflow-auto">
               {departureStations && departureStations?.length > 0 ? (
                 <div >

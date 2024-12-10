@@ -5,8 +5,8 @@ type FormSelectProps = {
   label: string;
   selectedValue: string;
   value: string;
-  checkFromStation?:boolean,
-  error?:boolean,
+  checkFromStation?: boolean;
+  error?: boolean;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void; // Select öğesi için doğru event tipi
 };
 const FormSelect: React.FC<FormSelectProps> = ({
@@ -16,10 +16,10 @@ const FormSelect: React.FC<FormSelectProps> = ({
   selectedValue,
   value,
   error,
-  checkFromStation
+  checkFromStation,
 }) => {
   return (
-    <label className="form-control w-full  ">
+    <label className="form-control w-full md:w-52">
       <div className="label">
         <span className="label-text">{label}</span>
       </div>

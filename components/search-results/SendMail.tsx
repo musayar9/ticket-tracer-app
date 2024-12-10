@@ -35,18 +35,16 @@ const SendMail:React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
     if (handleEmailValidation()) {
       const selectedTickets = selectTrain.map((train) => ({
         trainID: train.trainID,
-        tourID: train.tourID,
-        gidisTarih: train.departureDate,
-        inisTarih: train.arrivalDate,
-        binisIstasyon: train.departureStation,
-        inisIstasyonu: train.arrivalStation,
+        departureDate: train.departureDate,
+        arrivalDate: train.arrivalDate,
         email,
-        binisIstasyonId: train.departureStationID,
-        inisIstasyonId: train.arrivalStationID,
+        departureStationID: train.departureStationID,
+        arrivalStationID: train.arrivalStationID,
+        gender:"M"
       }));
 
       try {
-        const res = await customFetch.post("/tcdd/add", {
+        const res = await customFetch.post("/v2/tcdd/add", {
           request: selectedTickets,
         });
         console.log(res, "res");

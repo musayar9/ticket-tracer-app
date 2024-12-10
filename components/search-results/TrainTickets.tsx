@@ -105,7 +105,7 @@ const TrainTickets:React.FC<TrainTicketsProps> = ({item, isSelected}) => {
           Bilet ücreti
         </h6>
         <p className="text-[#444763] text-14px md:text-[20px] font-bold">
-          TRY: 540.00
+       YTL {item.minPrice}
         </p>
         <div className="flex items-center gap-2">
           <p className="flex items-center font-semibold text-xs text-[#8392a7]">

@@ -4,7 +4,7 @@ import { RequestBody } from "./types";
 
 export const fetchTrain = async () => {
   try {
-    const response = await customFetch.get("/tcdd/load/");
+    const response = await customFetch.get("/v2/tcdd/load/");
 
     return response.data?.response;
   } catch (error) {
@@ -18,7 +18,7 @@ export const fetchTrain = async () => {
 
 export const searchTrain = async (requestBody: RequestBody) => {
   try {
-    const response = await customFetch.post("/tcdd/query", requestBody);
+    const response = await customFetch.post("/v2/tcdd/query", requestBody);
     console.log(response.data);
     return response.data.details;
   } catch (error) {

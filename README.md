@@ -171,3 +171,5 @@ transition  duration-200 ease-linear "
 
 export default FormArea;
 ```
+ v23 tccdd query servisinde ekranda kullnaıcı 14 seçtiyse gönderilecek tarih 13 aralık  ,
+ erkek için m kadın için g

@@ -1,4 +1,4 @@
-export type StationTrainType = "ANAHAT" | "YHT";
+export type StationTrainTypes = "AH" | "BOLGESEL";
 export type ToStationList = { toStationId: number; toStationName: string };
 export type FromStationList = {
   stationID: number;
@@ -7,23 +7,21 @@ export type FromStationList = {
 };
 export type Station = {
   stationCode: string;
-  stationTrainTypes: StationTrainType[];
+  stationTrainTypes: StationTrainTypes[];
   toStationList: ToStationList[];
 } & FromStationList;
 
 export type RequestBody = {
-  gidisTarih: string;
-  binisIstasyonId: number;
-  inisIstasyonId: number;
-  binisIstasyon: string;
-  inisIstasyonu: string;
+  departureDate: string;
+  departureStationID: number;
+  arrivalStationID: number;
+  departureStation: string;
+  arrivalStation: string;
 };
 
 export type SearchTicketType = {
   trainID: number;
   trainName: string;
-  trainCode: string;
-  tourID: number;
   departureDate: string;
   arrivalDate: string;
   emptyPlace: {
@@ -35,6 +33,8 @@ export type SearchTicketType = {
   departureStation: string;
   departureStationID: number;
   arrivalStationID: number;
+  minPrice: number;
+  totalTripTime: string;
 };
 
 export type SelectedTrains = {
@@ -48,4 +48,5 @@ export type SelectedTrains = {
   email: string;
   status: string;
   total_attempt: number;
+  gender: string;
 };

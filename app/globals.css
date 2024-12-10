@@ -144,13 +144,25 @@ body {
   transform: rotate(180deg);
   left: 98px;
   top: -13px;
-  border: 15px solid;
+  border: 15px solid red;
 
-  border-color: #d1d5db transparent transparent transparent;
+  border-color: #fff transparent transparent transparent;
 
   z-index: 1;
 } */
-
+.dropdown-menu::before {
+  content: "";
+  display: flex;
+  position: absolute;
+  transform: rotate(180deg);
+  left: 98px;
+  top: -13px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: #eedede transparent transparent transparent;
+  background-clip: padding-box;
+  z-index: 1;
+}
 @media (min-width: 768px) {
   .seferDepartureArrival::before,
   .seferDepartureArrival::after {

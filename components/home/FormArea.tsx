@@ -15,10 +15,8 @@ type FormAreaProps = {
   data: Station[];
 };
 
-
-
 const FormArea: React.FC<FormAreaProps> = ({ data }) => {
-  console.log("dats", data);
+
   const { setLoading, loading, setSearchTicket } = useGlobalContext();
   const router = useRouter();
   const [fromStation, setFromStation] = useState("");
@@ -31,6 +29,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [error, setError] = useState(false);
   const [buyTickets, setBuyTickets] = useState(true);
+  
 
   const handleFromStationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -44,7 +43,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
         stationName: item.toStationName,
       };
     });
-    console.log(toStationList, "toStationList");
+
     setToStations(selectedStation ? toStationList : []);
     setIsFromStation(false);
     setToStation("");
@@ -62,6 +61,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
       stationViewName: station.stationViewName,
     })
   );
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,23 +90,24 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
     const formattedDate = formatCustomDate(selectedDate);
 
     const requestBody = {
-      gidisTarih: formattedDate,
-      binisIstasyonId: selectedFromStation?.stationID || 0,
-      inisIstasyonId: selectedToStation?.stationID || 0,
-      binisIstasyon: selectedFromStation?.stationName || "",
-      inisIstasyonu: selectedToStation?.stationName || "",
+      departureDate: formattedDate,
+      departureStationID: selectedFromStation?.stationID || 0,
+      arrivalStationID: selectedToStation?.stationID || 0,
+      departureStation: selectedFromStation?.stationName || "",
+      arrivalStation: selectedToStation?.stationName || "",
     };
 
+
     const data = await searchTrain(requestBody);
-    console.log(data, "data");
+  
     setSearchTicket(data);
     // addTicketToLocalStorage(data)
     localStorage.setItem("ticket", JSON.stringify(data));
     router.push("/search-ticket");
     // router.replace("/search-ticket");
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 2000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -118,8 +119,9 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
     }
   }, [error, errorMessage]);
 
+
   return (
-    <div className=" space-y-2">
+    <div className="p-2 space-y-2">
       <div className="flex items-center justify-between   border-b border-slate-300 pb-1 ">
         <div
           className={`${

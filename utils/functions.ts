@@ -1,28 +1,15 @@
 import { formatInTimeZone } from "date-fns-tz";
-import { differenceInMinutes, format } from "date-fns";
+import { addDays, differenceInMinutes, format, setHours, setMinutes, setSeconds } from "date-fns";
 export const formatCustomDate = (dateString: string): string => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+const date = new Date(dateString);
+const now = new Date(); 
+const newDate = addDays(date, 0);
+const finalDate = setSeconds(
+  setMinutes(setHours(newDate, now.getHours()), now.getMinutes()),
+  now.getSeconds()
+);
 
-  const selectedDate = new Date(dateString);
-
-  const formattedDate = `${months[selectedDate.getMonth()]} ${(
-    "0" + selectedDate.getDate()
-  ).slice(-2)}, ${selectedDate.getFullYear()} 00:00:00 AM`;
-
-  return formattedDate;
+return format(finalDate, "dd-MM-yyyy HH:mm:ss");
 };
 
 export const formateHour = (dateString: string): string => {
