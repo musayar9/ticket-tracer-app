@@ -123,7 +123,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
 
   return (
     <div className="p-2 space-y-2">
-      <div className="flex items-center justify-between relative  border-b border-slate-300 pb-1 ">
+      <div className=" flex items-center justify-between relative  border-b border-slate-300 pb-1 ">
         <div
           className={`${
             buyTickets && "border-b-2 border-red-600 buyTicket left-[98px] "

@@ -154,12 +154,11 @@ body {
   content: "";
   display: flex;
   position: absolute;
-  transform: rotate(-180deg);
-  left: 98px;
-  top: 50px;
-  border-width: 10px;
+  transform: rotate(180deg);
+  top: -13px;
+  border-width: 15px;
   border-style: solid;
-  border-color:  transparent transparent #dc2626 transparent ;
+  border-color: #8392a7  transparent transparent  transparent ;
   background-clip: padding-box;
   z-index: 1;
 }

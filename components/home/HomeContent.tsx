@@ -4,7 +4,7 @@ import FormArea from "./FormArea";
 import { Station } from "@/utils/types";
 import { usePathname } from "next/navigation";
 import { useGlobalContext } from "@/context/ticket-tracer-context";
-// import TestFormArea from "./TestFormArea";
+import TestFormArea from "./TestFormArea";
 
 type HomeContentProps = {
   data: Station[];
@@ -20,13 +20,13 @@ const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
       setEmail("")
       setLoading(false);
     }
-  }, [pathname, setLoading]);
+  }, [pathname, setLoading, setEmail]);
 
   return (
     <section className="max-w-lg mx-auto  shadow-xl   bg-white p-8 rounded-xl">
-      <FormArea data={data} />
+      {/* <FormArea data={data} /> */}
       
-      {/* <TestFormArea/> */}
+      <TestFormArea/>
     </section>
   );
 };

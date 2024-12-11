@@ -2,7 +2,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GoDotFill } from "react-icons/go";
 import { IoMdArrowRoundForward } from "react-icons/io";
-const data = [
+import FormInputs from "../FormInputs";
+import SearchFilterLists from "./SearchFilterLists";
+import { LuArrowRightToLine } from "react-icons/lu";
+const departureData = [
   {
     id: 1,
     stationName: "Ankara Garı",
@@ -79,27 +82,271 @@ const data = [
     city: "Kocaeli",
   },
 ];
-
-type DataType = {
+const arrivalData = [
+  {
+    id: 1,
+    stationName: "Ankara YHT Garı",
+    city: "Ankara",
+  },
+  {
+    id: 2,
+    stationName: "Söğütlüçeşme",
+    city: "İstanbul",
+  },
+  {
+    id: 3,
+    stationName: "Bostancı",
+    city: "İstanbul",
+  },
+  {
+    id: 4,
+    stationName: "Kartal",
+    city: "İstanbul",
+  },
+  {
+    id: 5,
+    stationName: "Gebze",
+    city: "Kocaeli",
+  },
+  {
+    id: 6,
+    stationName: "İzmit YHT Garı",
+    city: "Kocaeli",
+  },
+  {
+    id: 7,
+    stationName: "Arifiye YHT Garı",
+    city: "Sakarya",
+  },
+  {
+    id: 8,
+    stationName: "Bilecik YHT Garı",
+    city: "Bilecik",
+  },
+  {
+    id: 9,
+    stationName: "Bozüyük YHT Garı",
+    city: "Bilecik",
+  },
+  {
+    id: 10,
+    stationName: "Eskişehir YHT Garı",
+    city: "Eskişehir",
+  },
+  {
+    id: 11,
+    stationName: "Polatlı YHT Garı",
+    city: "Ankara",
+  },
+  {
+    id: 12,
+    stationName: "Konya YHT Garı",
+    city: "Konya",
+  },
+  {
+    id: 13,
+    stationName: "Selçuklu YHT Garı",
+    city: "Konya",
+  },
+  {
+    id: 14,
+    stationName: "Karaman YHT Garı",
+    city: "Karaman",
+  },
+  {
+    id: 15,
+    stationName: "Sincan YHT Garı",
+    city: "Ankara",
+  },
+];
+export type DataType = {
   id: number;
   stationName: string;
   city: string;
 };
+// const TestFormArea = () => {
+//   const [departureStations, setDepartureStations] = useState<
+//     DataType[] | undefined
+//   >([]);
+//   const [departure, setDeparture] = useState("");
+//   const [isDeparture, setIsDeparture] = useState<boolean | null>(null);
+//   const [openDepartureDropdown, setOpenDepartureDropdown] = useState(false);
+//   const dropdownRef = useRef<HTMLDivElement>(null);
+//   const departureRef = useRef<HTMLDivElement>(null);
+//   const arrivalRef = useRef<HTMLDivElement>(null);
+//   const [arrival, setArrival] = useState("");
+//   const [openArrivalDropdown, setOpenArrivalDropDown] = useState(false);
+//   const [isArrival, setIsArrival] = useState<boolean | null>(null);
+
+//   const handleDeparture = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setDeparture(e.target.value);
+//   };
+//   const handleArrival = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setArrival(e.target.value);
+//   };
+
+//   useEffect(() => {
+//     if (departure) {
+//       const result = departureData.filter(
+//         (item) =>
+//           item.city
+//             .toLocaleLowerCase("TR")
+//             .includes(departure.toLocaleLowerCase("TR")) ||
+//           item.stationName
+//             .toLocaleLowerCase("TR")
+//             .includes(departure.toLocaleLowerCase("TR"))
+//       );
+//       setDepartureStations(result);
+//     }
+
+//     if (arrival) {
+//       const result = arrivalData.filter(
+//         (item) =>
+//           item.city
+//             .toLocaleLowerCase("TR")
+//             .includes(arrival.toLocaleLowerCase("TR")) ||
+//           item.stationName
+//             .toLocaleLowerCase("TR")
+//             .includes(arrival.toLocaleLowerCase("TR"))
+//       );
+//       setDepartureStations(result);
+//     }
+//   }, [departure, arrival]);
+
+//   useEffect(() => {
+//     const handleOutsideClick = (event: MouseEvent) => {
+//       if (
+//         dropdownRef.current &&
+//         !dropdownRef.current.contains(event.target as Node)
+//       ) {
+//         setOpenDepartureDropdown(false);
+//         setOpenArrivalDropDown(false);
+//         if (isDeparture) {
+//           setIsDeparture(false);
+//           // setIsArrival(true)
+          
+//         }
+//         if(isArrival){
+//         setIsArrival(false)
+//           // setIsDeparture(true);
+//         }
+//       }
+
+//       if (
+//         arrivalRef.current &&
+//         !arrivalRef.current.contains(event.target as Node)
+//       ) {
+//         setOpenDepartureDropdown(false);
+//       }
+//       if (
+//         departureRef.current &&
+//         !departureRef.current.contains(event.target as Node)
+//       ) {
+//         setOpenArrivalDropDown(false);
+//       }
+//     };
+
+//     if (openDepartureDropdown || openArrivalDropdown) {
+//       document.addEventListener("mousedown", handleOutsideClick);
+//     }
+
+//     return () => {
+//       document.removeEventListener("mousedown", handleOutsideClick);
+//     };
+//   }, [openDepartureDropdown, openArrivalDropdown]);
+
+//   return (
+//     <>
+//       <div className="relative" ref={dropdownRef}>
+//         <div className="flex items-center gap-2">
+//           <FormInputs
+//             value={departure}
+//             onChange={handleDeparture}
+//             onFocus={() => {
+//               setOpenDepartureDropdown(true);
+//               setIsDeparture(true);
+//             }}
+//             id={"departure_station"}
+//             label={"Nereden"}
+//             icon={<GoDotFill />}
+//             arrowIcon={<IoMdArrowRoundForward className="-ml-1" />}
+//             ref={departureRef}
+//             message={isDeparture === false ? "gerekli alan" : undefined}
+//           />
+
+//           <FormInputs
+//             value={arrival}
+//             onChange={handleArrival}
+//             onFocus={() => {
+//               setOpenArrivalDropDown(true);
+//               setIsArrival(true);
+//             }}
+//             id={"arrival_station"}
+//             label={"Nereye"}
+//             icon={<LuArrowRightToLine />}
+//             ref={arrivalRef}
+//             disabled={departure === "" && isArrival===false}
+//             message={isArrival === false ? "gerekli alan" : undefined}
+//           />
+//         </div>
+//         {openDepartureDropdown && departure && (
+//           <>
+//             <SearchFilterLists
+//               stationData={departureStations}
+//               setStation={setDeparture}
+//               dropdown={setOpenDepartureDropdown}
+//               openDeparture={openDepartureDropdown}
+//               value={departure}
+//               openArrival={false}
+//               isStation={setIsDeparture}
+//             />
+//           </>
+//         )}
+
+//         {openArrivalDropdown && arrival && (
+//           <SearchFilterLists
+//             stationData={departureStations}
+//             setStation={setArrival}
+//             openArrival={openArrivalDropdown}
+//             value={arrival}
+//             openDeparture={false}
+//             dropdown={setOpenArrivalDropDown}
+//             isStation={setIsArrival}
+//           />
+//         )}
+//       </div>
+//     </>
+//   );
+// };
 const TestFormArea = () => {
   const [departureStations, setDepartureStations] = useState<
     DataType[] | undefined
   >([]);
   const [departure, setDeparture] = useState("");
-  const [openDropdown, setOpenDropdown] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isDeparture, setIsDeparture] = useState<boolean | null>(null);
+  const [openDepartureDropdown, setOpenDepartureDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const departureRef = useRef<HTMLDivElement>(null);
+  const arrivalRef = useRef<HTMLDivElement>(null);
+  const [arrival, setArrival] = useState("");
+  const [openArrivalDropdown, setOpenArrivalDropDown] = useState(false);
+  const [isArrival, setIsArrival] = useState<boolean | null>(null);
+  const [departureError, setDepartureError] = useState<string | null>(null);
+  const [arrivalError, setArrivalError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDeparture = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeparture(e.target.value);
+    setDepartureError(null);
+  };
+
+  const handleArrival = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setArrival(e.target.value);
+    setArrivalError(null);
   };
 
   useEffect(() => {
     if (departure) {
-      const result = data.filter(
+      const result = departureData.filter(
         (item) =>
           item.city
             .toLocaleLowerCase("TR")
@@ -110,104 +357,145 @@ const TestFormArea = () => {
       );
       setDepartureStations(result);
     }
-  }, [departure]);
-  
-    useEffect(() => {
-      const handleOutsideClick = (event: MouseEvent) => {
-        if (
-          dropdownRef.current &&
-          !dropdownRef.current.contains(event.target as Node)
-        ) {
-          setOpenDropdown(false);
-        }
-      };
 
-      if (openDropdown) {
-        document.addEventListener("mousedown", handleOutsideClick);
+    if (arrival) {
+      const result = arrivalData.filter(
+        (item) =>
+          item.city
+            .toLocaleLowerCase("TR")
+            .includes(arrival.toLocaleLowerCase("TR")) ||
+          item.stationName
+            .toLocaleLowerCase("TR")
+            .includes(arrival.toLocaleLowerCase("TR"))
+      );
+      setDepartureStations(result);
+    }
+  }, [departure, arrival]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpenDepartureDropdown(false);
+        setOpenArrivalDropDown(false);
+
+        if (isDeparture) {
+          if (
+            !departure ||
+            !departureData.some((station) => station.stationName === departure)
+          ) {
+            setDepartureError("Tren Kalkış Alanı Gereklidir");
+          }
+          setIsDeparture(false);
+        }
+
+        if (isArrival) {
+          if (
+            !arrival ||
+            !arrivalData.some((station) => station.stationName === arrival)
+          ) {
+            setArrivalError("Tren Varış Alanı Gereklidir");
+          }
+          setIsArrival(false);
+        }
       }
 
-      return () => {
-        document.removeEventListener("mousedown", handleOutsideClick);
-      };
-    }, [openDropdown]);
-  console.log(departureStations, "departure statiıns");
+      if (
+        arrivalRef.current &&
+        !arrivalRef.current.contains(event.target as Node)
+      ) {
+        setOpenDepartureDropdown(false);
+      }
+      if (
+        departureRef.current &&
+        !departureRef.current.contains(event.target as Node)
+      ) {
+        setOpenArrivalDropDown(false);
+      }
+    };
+
+    if (openDepartureDropdown || openArrivalDropdown) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [
+    openDepartureDropdown,
+    openArrivalDropdown,
+    departure,
+    arrival,
+    isDeparture,
+    isArrival,
+  ]);
+
   return (
     <>
       <div className="relative" ref={dropdownRef}>
-        <div className="relative">
-          <input
-            type="text"
-            id="floating_helper"
-            aria-describedby="floating_helper_text"
-            className="block rounded-lg border border-slate-300 px-2.5 pb-1.5 pt-7 w-full text-md text-gray-900
-    bg-[#fff] focus:outline-none focus:ring-0 focus:border-slate-600 peer"
-            placeholder=" "
+        <div className="flex items-center gap-2">
+          <FormInputs
             value={departure}
-            onChange={handleChange}
-            onFocus={() => setOpenDropdown(true)}
+            onChange={handleDeparture}
+            onFocus={() => {
+              setOpenDepartureDropdown(true);
+              setIsDeparture(true);
+            }}
+            id={"departure_station"}
+            label={"Nereden"}
+            icon={<GoDotFill />}
+            arrowIcon={<IoMdArrowRoundForward className="-ml-1" />}
+            ref={departureRef}
+            message={departureError}
           />
-          <label
-            htmlFor="floating_helper"
-            className="absolute flex items-center  text-md text-gray-700  duration-300 transform -translate-y-4 scale-75 top-5 z-10 origin-[0] start-2.5
-    peer-focus:text-slate-400  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
-          >
-            <GoDotFill />
-            <IoMdArrowRoundForward className="-ml-1" />
-            Nereden
-          </label>
-        </div>
 
-        {openDropdown && departure && (
-          <div className="relative">
-            {/* <div
-              className="absolute -top-[3px] mt-2 z-10 left-[98px] transform rotate-90 w-[21px] h-[24px] bg-no-repeat"
-              style={{
-                backgroundImage:
-                  "url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMi40IDM4Ljk2Ij48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6I2ZmZjtzdHJva2U6I2Q5ZDlkOTtzdHJva2UtbWl0ZXJsaW1pdDoxMH08L3N0eWxlPjwvZGVmcz48ZyBpZD0iUG9seWdvbl8xMC0yIiBkYXRhLW5hbWU9IlBvbHlnb24gMTAtMiI+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMS42MSAyMS44MWEzLjAwMSAzLjAwMSAwIDAxMC00LjY3TDE2LjIyIDUuMzVhMy4wMDEgMy4wMDEgMCAwMTQuMjIuNDVjLjQzLjUzLjY3IDEuMi42NyAxLjg5djIzLjU5YzAgMS42Ni0xLjM0IDMtMyAzLS42OSAwLTEuMzUtLjI0LTEuODktLjY3TDEuNjEgMjEuODF6Ii8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMS41IDE5LjQ4YzAgLjYxLjI3IDEuMTcuNzQgMS41NmwxNC42MSAxMS44Yy42MS41IDEuNDEuNTkgMi4xMi4yNS43MS0uMzQgMS4xNC0xLjAyIDEuMTQtMS44VjcuNjhjMC0uNzktLjQzLTEuNDYtMS4xNC0xLjgtLjcxLS4zNC0xLjUtLjI1LTIuMTIuMjVMMi4yNCAxNy45MmMtLjQ3LjM4LS43NC45NS0uNzQgMS41Nm0tMSAwYzAtLjg3LjM3LTEuNzMgMS4xMS0yLjMzbDE0LjYxLTExLjhjMS45Ni0xLjU4IDQuODktLjE5IDQuODkgMi4zM3YyMy42YzAgMi41Mi0yLjkyIDMuOTItNC44OSAyLjMzTDEuNjEgMjEuODFDLjg3IDIxLjIxLjUgMjAuMzQuNSAxOS40OHoiLz48L2c+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE2LjUyIDBoNS44N3YzOC45NmgtNS44N3oiLz48L3N2Zz4=)",
-              }}
-            ></div> */}
-<div className="dropdown-menu"></div>
-            
-            {/* <div className="absolute top-1 left-1/2 mt-3 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 z-10  bg-white border-l border-t border-slate-300 rotate-45"></div> */}
-            <div className="  absolute bg-white shadow-lg rounded-md border  border-slate-300 w-full mt-4 p-4 h-auto max-h-56 overflow-auto">
-              {departureStations && departureStations?.length > 0 ? (
-                <div >
-                  <h3 className="text-slate-700 font-semibold py-2 pl-2">
-                    Tüm İstasyonlar
-                  </h3>
-                  {departureStations?.map((departure) => (
-                    <div
-                      key={departure?.id}
-                      className="flex items-center justify-between gap-1 p-3 border-b hover:z-30 border-slate-200 hover:bg-blue-100 rounded-md cursor-pointer transition-all duration-200 ease-in"
-                      onClick={() => {
-                        setDeparture(departure?.stationName);
-                        setOpenDropdown(false);
-                      }}
-                    >
-                      <div>
-                        <h4 className="text-slate-500 text-sm">İstasyon</h4>
-                        <div className="uppercase flex items-center text-slate-600 text-sm">
-                          <p>{departure?.stationName},</p>
-                          <p>{departure?.city}</p>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-slate-500 uppercase text-sm">
-                          Anahat
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div>
-                  <p className="text-slate-600 font-semibold ">
-                    Sonuç Bulunamadı
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
+          <FormInputs
+            value={arrival}
+            onChange={handleArrival}
+            onFocus={() => {
+              setOpenArrivalDropDown(true);
+              setIsArrival(true);
+            }}
+            id={"arrival_station"}
+            label={"Nereye"}
+            icon={<LuArrowRightToLine />}
+            ref={arrivalRef}
+            disabled={!departure 
+               || !!departureError
+            }
+            message={arrivalError}
+          />
+        </div>
+        {openDepartureDropdown && departure && (
+          <SearchFilterLists
+            stationData={departureStations}
+            setStation={(stationName) => {
+              setDeparture(stationName);
+              setDepartureError(null);
+            }}
+            dropdown={setOpenDepartureDropdown}
+            openDeparture={openDepartureDropdown}
+            value={departure}
+            openArrival={false}
+            isStation={setIsDeparture}
+          />
+        )}
+
+        {openArrivalDropdown && arrival && (
+          <SearchFilterLists
+            stationData={departureStations}
+            setStation={(stationName) => {
+              setArrival(stationName);
+              setArrivalError(null);
+            }}
+            openArrival={openArrivalDropdown}
+            value={arrival}
+            openDeparture={false}
+            dropdown={setOpenArrivalDropDown}
+            isStation={setIsArrival}
+          />
         )}
       </div>
     </>
@@ -215,3 +503,4 @@ const TestFormArea = () => {
 };
 
 export default TestFormArea;
+
