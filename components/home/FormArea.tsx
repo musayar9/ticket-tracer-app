@@ -61,14 +61,13 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
         return {
           stationID: item.toStationId,
           stationName: item.toStationName,
-        
         };
       });
 
       setToStations(selectedStation ? toStationList : []);
       setToStation("");
     }
-  }, [ fromStation, setToStations, data]);
+  }, [fromStation, setToStations, data]);
 
   const handleToStationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -81,7 +80,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
       stationID: station.stationID,
       stationName: station.stationName,
       stationViewName: station.stationViewName,
-      stationTrainTypes:station.stationTrainTypes
+      stationTrainTypes: station.stationTrainTypes,
     })
   );
 
@@ -286,8 +285,6 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
           </div>
           <form onSubmit={handleSubmit} className="-mt-2">
             <div className="flex  flex-col md:flex-row  items-center justify-center ps-1 gap-2">
-           
-
               <FormInputs
                 value={fromStation}
                 onChange={handleFromStationChange}
@@ -299,7 +296,6 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 label={"Nereden"}
                 icon={<GoDotFill />}
                 arrowIcon={<IoMdArrowRoundForward className="-ml-1" />}
-        
                 message={departureError}
               />
 
@@ -313,7 +309,6 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 id={"arrival_station"}
                 label={"Nereye"}
                 icon={<LuArrowRightToLine className="mr-1" />}
-              
                 disabled={!fromStation || !!departureError}
                 message={arrivalError}
               />
