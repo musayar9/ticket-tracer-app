@@ -10,6 +10,7 @@ type FormInputProps = {
   name: string;
   placeholder?: string;
   minLength?: number;
+  maxLength?:number
 };
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -22,6 +23,7 @@ const FormInput: React.FC<FormInputProps> = ({
   type,
   placeholder,
   minLength,
+  maxLength
 }) => {
   const minDateString = minDate?.toISOString().split("T")[0];
   return (
@@ -36,6 +38,7 @@ const FormInput: React.FC<FormInputProps> = ({
         value={value}
         onChange={onChange}
         min={type === "date" ? minDateString : minLength}
+        maxLength={maxLength}
         placeholder={placeholder}
       />
     </label>

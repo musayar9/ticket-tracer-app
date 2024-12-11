@@ -20,7 +20,7 @@ const FormInputs = ({
   label,
   icon,
   arrowIcon,
-  ref,
+  // ref,
   value,
   disabled,
   message
@@ -28,7 +28,7 @@ const FormInputs = ({
   return (
     <>
       <div className="flex items-start flex-col ">
-        <div className="relative" ref={ref}>
+        <div className="relative" >
           <input
             type="text"
             id={id}

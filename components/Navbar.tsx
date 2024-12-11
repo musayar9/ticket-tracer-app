@@ -1,8 +1,12 @@
+"use client"
 import Link from "next/link";
 import React from "react";
-import { IoTicket } from "react-icons/io5";
+
 import { FaTrainSubway } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 const Navbar = () => {
+const pathname = usePathname()
   return (
     <nav className="max-w-6xl mx-auto p-8">
       <div className="flex items-center justify-between">
@@ -15,15 +19,17 @@ const Navbar = () => {
           </p>
         </Link>
         <div>
-          <div className="flex items-center gap-2">
-            <IoTicket className="text-blue-500" size={18} />
-            <Link
-              href={"/my-tickets"}
-              className="text-sm  text-slate-600 font-semibold tracking-wide"
-            >
-              Biletlerim
-            </Link>
-          </div>
+          {pathname !== "/" && (
+            <div className="flex items-center gap-2">
+              <FaHome className="text-blue-500" size={18} />
+              <Link
+                href={"/"}
+                className="text-sm  text-slate-600 font-semibold tracking-wide"
+              >
+                Ana Sayfa
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -19,14 +19,20 @@ const SearchMyTickets = () => {
     setEmailError("");
     return true;
   };
+
+  const localEmail = localStorage.getItem("email");
+
   useEffect(() => {
+    if (localEmail) {
+      setEmail(localEmail);
+    }
+
     if (emailError) {
       setTimeout(() => {
         setEmailError("");
-    
       }, 3000);
     }
-  }, [emailError]);
+  }, [emailError, localEmail]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +46,7 @@ const SearchMyTickets = () => {
       const data = await ticketRequest({ email });
       console.log(data);
       setSelectedTrainTickets(data);
-      setLoading(false);
+      // setLoading(false);
       router.push("/my-tickets");
     }
   };

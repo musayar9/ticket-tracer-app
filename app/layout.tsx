@@ -16,8 +16,18 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ticket Tracer App",
+  title: "Biletio",
   description: "Ticket app",
+  openGraph: {
+    images: [
+      {
+        url: "/path/to/ticket.png", // Open Graph image dosyasının yolu
+        width: 800,
+        height: 600,
+        alt: "Biletio",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -31,7 +31,7 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [selectTrain, setSelectTrain] = useState<SearchTicketType[]>([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [selectedTrainTickets, setSelectedTrainTickets] = useState<
     SelectedTrains[]
   >([]);

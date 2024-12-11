@@ -2,11 +2,15 @@ import { useGlobalContext } from "@/context/ticket-tracer-context";
 import customFetch from "@/utils/axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { IoMdFemale, IoMdMale } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
-import FormInput from "../FormInput";
+import { IoMdFemale, IoMdMale, IoMdPerson } from "react-icons/io";
+
 import Gender from "./Gender";
 import axios from "axios";
+import FormIconInput from "../FormIconInput";
+import { HiMiniIdentification } from "react-icons/hi2";
+import { FaBirthdayCake, FaPhoneAlt } from "react-icons/fa";
+import { IoPersonAdd } from "react-icons/io5";
+import { MdEmail } from "react-icons/md";
 
 type SendMailProps = {
   setShowSuccessMsg: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,12 +23,13 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
     lastName: "",
     birthDate: "",
     phone: "",
+    identityNumber: "",
   });
   const [emailError, setEmailError] = useState("");
   const [gender, setGender] = useState("");
   const [male, setMale] = useState(false);
   const [women, setWomen] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handleEmailValidation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -62,30 +67,38 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
 
     if (missingFields.length > 0) {
       setEmailError(
-        `Lütfen aşağıdaki alanları doldurun: ${missingFields.join(", ")}`
+        `Lütfen yukarıdaki  alanları doldurun: ${missingFields.join(", ")}`
       );
       return;
     }
-
+    const formatBirthDate = formatData.birthDate.split("-").join("");
     if (handleEmailValidation()) {
       const selectedTickets = selectTrain.map((train) => ({
         trainID: train.trainID,
         departureDate: train.departureDate,
         arrivalDate: train.arrivalDate,
         email,
+        name: formatData.name,
+        lastName: formatData.lastName,
+        birthDate: formatBirthDate,
+        phone: formatData.phone,
+        identityNumber: formatData.identityNumber,
         departureStationID: train.departureStationID,
         arrivalStationID: train.arrivalStationID,
         gender: gender,
       }));
-      console.log("selected ", selectedTickets);
 
       try {
+        setLoading(true);
         const res = await customFetch.post("/v2/tcdd/add", {
           request: selectedTickets,
         });
-        console.log(res, "res");
+        localStorage.setItem("email", email);
         setShowSuccessMsg(true);
+        setLoading(false);
+        return res;
       } catch (error) {
+        setLoading(false);
         if (axios.isAxiosError(error)) {
           console.log(error);
           toast.error(error?.response?.data.errorMessage);
@@ -97,15 +110,17 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
     }
   };
 
-  console.log("formatDat", formatData);
+  console.log("formatDat", formatData.birthDate.split("-").join(""));
   console.log("selected");
   return (
-    <div className="space-y-2">
-      <h2>Kişisel Bilgiler</h2>
+    <div className="-mt-3">
+      <h2 className="text-center text-xl text-slate-700 font-semibold py-3">
+        Kişisel Bilgiler
+      </h2>
 
-      <>
-        <div className="flex items-center justify-between gap-2">
-          <FormInput
+      <div className="space-y-3">
+        <div className="flex items-center flex-col lg:flex-row md:justify-between gap-2">
+          <FormIconInput
             value={formatData.name}
             name={"name"}
             type={"text"}
@@ -114,33 +129,61 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
               setFormatData({ ...formatData, name: e.target.value })
             }
             label={"Ad"}
-            placeholder="Adınızı  Girin"
+            placeholder="Adınız"
+            icon={<IoMdPerson />}
+            styles={"capitalize"}
           />
-          <FormInput
+          <FormIconInput
             value={formatData.lastName}
             name={"lastName"}
             type={"text"}
             error={emailError}
             onChange={(e) =>
-              setFormatData({ ...formatData, name: e.target.value })
+              setFormatData({ ...formatData, lastName: e.target.value })
             }
             label={"Soyad"}
-            placeholder="Soyadınızı Girin"
+            placeholder="Soyadınız"
+            icon={<IoPersonAdd />}
+            styles={"capitalize"}
           />
-          <FormInput
+        </div>
+        <div className="flex items-center flex-col lg:flex-row md:justify-between gap-2">
+          <FormIconInput
+            value={formatData.identityNumber}
+            name={"identityNumber"}
+            type="text"
+            min={0}
+            maxLength={11}
+            error={emailError}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*$/.test(value) && Number(value) >= 0) {
+                setFormatData({
+                  ...formatData,
+                  identityNumber: value,
+                });
+              }
+            }}
+            label={"TC Kimlik Numarası"}
+            placeholder="TC Kimlik Numaranız"
+            icon={<HiMiniIdentification />}
+          />
+          <FormIconInput
             value={formatData.birthDate}
             name={"birthDate"}
             type={"date"}
             error={emailError}
             onChange={(e) =>
-              setFormatData({ ...formatData, name: e.target.value })
+              setFormatData({ ...formatData, birthDate: e.target.value })
             }
             label={"Doğum Tarihi"}
-            placeholder="Doğum Tarihiniz Girin"
+            placeholder="Doğum Tarihiniz"
+            icon={<FaBirthdayCake />}
           />
         </div>
-        <div className="flex items-center justify-between gap-2">
-          <FormInput
+
+        <div className="flex items-center flex-col lg:flex-row md:justify-betweenn gap-2">
+          <FormIconInput
             value={email}
             name={"email"}
             type={"text"}
@@ -148,22 +191,29 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
             onChange={(e) => setEmail(e.target.value)}
             label={"e-mail"}
             placeholder="E-mail Adresinizi Girin"
+            icon={<MdEmail />}
+            styles={"lowercase"}
           />
-          <FormInput
-            value={formatData.birthDate}
+          <FormIconInput
+            value={formatData.phone}
             name={"phone"}
             type="text"
-            minLength={11}
+            min={0}
+            maxLength={11}
             error={emailError}
-            onChange={(e) =>
-              setFormatData({ ...formatData, name: e.target.value })
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*$/.test(value) && Number(value) >= 0) {
+                setFormatData({ ...formatData, phone: value });
+              }
+            }}
             label={"Telefon"}
             placeholder="Telefon Numaranızı  Girin"
+            icon={<FaPhoneAlt />}
           />
         </div>
 
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 pt-2">
           <Gender
             value="M"
             gender={male}
@@ -190,10 +240,10 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
             onClick={handleAddedTicket}
             className="px-4 py-2 bg-emerald-600 text-white rounded-lg self-end text-xs hover:opacity-85 duration-200 ease-in"
           >
-            Mail Gönder
+            {loading ? "Kaydediliyor..." : "Kaydet"}
           </button>
         </div>
-      </>
+      </div>
     </div>
   );
 };
