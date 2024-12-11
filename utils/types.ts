@@ -4,6 +4,7 @@ export type FromStationList = {
   stationID: number;
   stationName: string;
   stationViewName?: string;
+  stationTrainType?:StationTrainTypes[]
 };
 export type Station = {
   stationCode: string;

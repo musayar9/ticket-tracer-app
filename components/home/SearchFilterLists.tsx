@@ -1,8 +1,9 @@
 import React from 'react'
-import { DataType } from './TestFormArea'
+
+import { FromStationList } from '@/utils/types';
 
 type SearchFilterListsProps = {
-  stationData: DataType[] | undefined;
+  stationData: FromStationList[] | undefined;
   setStation: React.Dispatch<React.SetStateAction<string>>;
   dropdown: React.Dispatch<React.SetStateAction<boolean>>;
   value: string;
@@ -35,6 +36,7 @@ const SearchFilterLists = ({
 
       {/* <div className="absolute top-1 left-1/2 mt-3 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 z-10  bg-white border-l border-t border-slate-300 rotate-45"></div> */}
       <div className="  absolute bg-white shadow-lg rounded-md border  border-slate-300 w-full mt-4 p-4 h-auto max-h-56 overflow-auto">
+        
         {stationData && stationData?.length > 0 ? (
           <div>
             <h3 className="text-slate-700 font-semibold py-2 pl-2">
@@ -42,7 +44,7 @@ const SearchFilterLists = ({
             </h3>
             {stationData?.map((station) => (
               <div
-                key={station?.id}
+                key={station?.stationID}
                 className="flex items-center justify-between gap-1 p-3 border-b hover:z-30 border-slate-200 hover:bg-blue-100 rounded-md cursor-pointer transition-all duration-200 ease-in"
                 onClick={() => {
                   setStation(station?.stationName);
@@ -55,12 +57,12 @@ const SearchFilterLists = ({
                 <div>
                   <h4 className="text-slate-500 text-sm">İstasyon</h4>
                   <div className="uppercase flex items-center text-slate-600 text-sm">
-                    <p>{station?.stationName},</p>
-                    <p>{station?.city}</p>
+                    <p>{station?.stationName}</p>
+                  
                   </div>
                 </div>
                 <div>
-                  <p className="text-slate-500 uppercase text-sm">Anahat</p>
+                  <p className="text-slate-500 uppercase text-sm">{station?.stationTrainType && station.stationTrainType[0] === "AH" ? "AH" : "BOLGESEL"}</p>
                 </div>
               </div>
             ))}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React from "react";
 
@@ -6,7 +6,7 @@ import { FaTrainSubway } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 const Navbar = () => {
-const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <nav className="max-w-6xl mx-auto p-8">
       <div className="flex items-center justify-between">
@@ -14,9 +14,7 @@ const pathname = usePathname()
           <span className="bg-blue-500 rounded-full  w-10 h-10 flex items-center justify-center">
             <FaTrainSubway className="text-white" size={18} />
           </span>
-          <p className="font-semibold text-slate-600 tracking-wider">
-            Ticket <span className="text-slate-700">Tracer</span>
-          </p>
+          <p className="font-semibold text-slate-600 tracking-wider">Biletio</p>
         </Link>
         <div>
           {pathname !== "/" && (

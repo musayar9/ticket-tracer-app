@@ -19,7 +19,7 @@ export const fetchTrain = async () => {
 export const searchTrain = async (requestBody: RequestBody) => {
   try {
     const response = await customFetch.post("/v2/tcdd/query", requestBody);
-    console.log(response.data);
+
     return response.data.details;
   } catch (error) {
     if (axios.isAxiosError(error)) {

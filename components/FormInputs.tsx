@@ -8,7 +8,7 @@ type FormInputsProps = {
   label: string;
   icon: React.ReactNode;
   arrowIcon?: React.ReactNode;
-  ref: React.Ref<HTMLDivElement>;
+
   disabled?: boolean;
   message?: string | null
 };
@@ -20,19 +20,19 @@ const FormInputs = ({
   label,
   icon,
   arrowIcon,
-  // ref,
+
   value,
   disabled,
   message
 }: FormInputsProps) => {
   return (
     <>
-      <div className="flex items-start flex-col ">
-        <div className="relative" >
+      <div className="flex items-start flex-col w-full">
+        <div className="relative w-full" >
           <input
             type="text"
             id={id}
-            className="disabled:border-slate-100 disabled:cursor-not-allowed block rounded-lg border border-slate-300 px-2.5 pb-1.5 pt-7 w-full text-md text-gray-900
+            className="disabled:border-slate-100 disabled:cursor-not-allowed flex w-full rounded-lg border border-slate-300 px-2.5 pb-1.5 pt-5  text-sm text-gray-900
     bg-[#fff] focus:outline-none focus:ring-0 focus:border-slate-600 peer"
             placeholder=" "
             value={value}
@@ -42,7 +42,7 @@ const FormInputs = ({
           />
           <label
             htmlFor={id}
-            className="absolute flex items-center  text-md text-gray-700  duration-300 transform -translate-y-4 scale-75 top-5 z-10 origin-[0] start-2.5
+            className="absolute flex items-center  text-sm text-gray-700  duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5
     peer-focus:text-slate-400  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
           >
             {icon}

@@ -17,7 +17,7 @@ const MyTickets = () => {
                 <FaTrainSubway className="text-white" size={18} />
               </span>
               <p className="hidden  md:flex font-semibold text-slate-600 tracking-wider text-sm">
-                Ticket <span className="text-slate-700">Tracer</span>
+               Biletio
               </p>
             </div>
 

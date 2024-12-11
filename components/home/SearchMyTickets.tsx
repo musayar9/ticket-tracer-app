@@ -44,7 +44,7 @@ const SearchMyTickets = () => {
       // const data = await res.data;
       // console.log(data);
       const data = await ticketRequest({ email });
-      console.log(data);
+
       setSelectedTrainTickets(data);
       // setLoading(false);
       router.push("/my-tickets");

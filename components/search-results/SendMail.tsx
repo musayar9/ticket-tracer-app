@@ -100,7 +100,7 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
       } catch (error) {
         setLoading(false);
         if (axios.isAxiosError(error)) {
-          console.log(error);
+          
           toast.error(error?.response?.data.errorMessage);
           return error.response?.data.errorMessage;
         } else {
@@ -110,8 +110,8 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
     }
   };
 
-  console.log("formatDat", formatData.birthDate.split("-").join(""));
-  console.log("selected");
+
+  console.log("selected", selectTrain);
   return (
     <div className="-mt-3">
       <h2 className="text-center text-xl text-slate-700 font-semibold py-3">

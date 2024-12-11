@@ -35,13 +35,13 @@ const EmailArea = () => {
    
         setLoading(true);
         const data = await ticketRequest({email})
-        console.log(data)
+
         setSelectedTrainTickets(data);
         setLoading(false);
   
     }
   };
-  console.log(emailError, "emailError");
+
 
   return (
     <div className="p-4 bg-[#fff] rounded-2xl shadow-lg">

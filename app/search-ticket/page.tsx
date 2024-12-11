@@ -10,7 +10,7 @@ const SearchTicket = () => {
   if (!searchTicket || searchTicket.length === 0) {
     return <CheckTrain />;
   }
-  console.log(searchTicket, "setseearchTciket")
+
 
   return (
     //max-w-[1200px]
