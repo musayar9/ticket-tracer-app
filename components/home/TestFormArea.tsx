@@ -224,7 +224,7 @@ export type DataType = {
 //         if (isDeparture) {
 //           setIsDeparture(false);
 //           // setIsArrival(true)
-          
+
 //         }
 //         if(isArrival){
 //         setIsArrival(false)
@@ -387,6 +387,7 @@ const TestFormArea = () => {
             !departureData.some((station) => station.stationName === departure)
           ) {
             setDepartureError("Tren Kalkış Alanı Gereklidir");
+            setArrival("");
           }
           setIsDeparture(false);
         }
@@ -415,6 +416,12 @@ const TestFormArea = () => {
         setOpenArrivalDropDown(false);
       }
     };
+    if (
+      !departure ||
+      !departureData.some((station) => station.stationName === departure)
+    ) {
+      setArrival("");
+    }
 
     if (openDepartureDropdown || openArrivalDropdown) {
       document.addEventListener("mousedown", handleOutsideClick);
@@ -462,9 +469,7 @@ const TestFormArea = () => {
             label={"Nereye"}
             icon={<LuArrowRightToLine />}
             ref={arrivalRef}
-            disabled={!departure 
-               || !!departureError
-            }
+            disabled={!departure || !!departureError}
             message={arrivalError}
           />
         </div>
@@ -503,4 +508,3 @@ const TestFormArea = () => {
 };
 
 export default TestFormArea;
-

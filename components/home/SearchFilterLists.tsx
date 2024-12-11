@@ -19,7 +19,7 @@ const SearchFilterLists = ({
   openDeparture,
 }: SearchFilterListsProps) => {
   return (
-    <div className="relative">
+    <div className="relative -mt-3">
       {/* <div
               className="absolute -top-[3px] mt-2 z-10 left-[98px] transform rotate-90 w-[21px] h-[24px] bg-no-repeat"
               style={{
