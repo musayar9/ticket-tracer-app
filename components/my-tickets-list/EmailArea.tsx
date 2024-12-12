@@ -32,16 +32,13 @@ const EmailArea = () => {
     e.preventDefault();
 
     if (handleEmailValidation()) {
-   
-        setLoading(true);
-        const data = await ticketRequest({email})
-
-        setSelectedTrainTickets(data);
-        setLoading(false);
-  
+      setLoading(true);
+      const data = await ticketRequest({ email });
+      
+      setSelectedTrainTickets(data);
+      setLoading(false);
     }
   };
-
 
   return (
     <div className="p-4 bg-[#fff] rounded-2xl shadow-lg">

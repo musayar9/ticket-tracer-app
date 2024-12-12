@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import FormInput from "../FormInput";
+import FormInput from "../FormDateInput";
 import { searchTrain } from "@/utils/api";
 import { FromStationList, Station } from "@/utils/types";
 import { formatCustomDate } from "@/utils/functions";
@@ -121,13 +121,12 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
     const data = await searchTrain(requestBody);
 
     setSearchTicket(data);
-    // addTicketToLocalStorage(data)
-    localStorage.setItem("ticket", JSON.stringify(data));
+
     // router.push("/search-ticket");
     router.replace("/search-ticket");
     setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -311,6 +310,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 icon={<LuArrowRightToLine className="mr-1" />}
                 disabled={!fromStation || !!departureError}
                 message={arrivalError}
+               
               />
             </div>
 
@@ -327,6 +327,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                   value={fromStation}
                   openArrival={false}
                   isStation={setIsDeparture}
+                  styles={"-mt-24 md:-mt-3"}
                 />
               )}
 
@@ -342,6 +343,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                   openDeparture={false}
                   dropdown={setOpenArrivalDropDown}
                   isStation={setIsArrival}
+                  styles={"-mt-5 md:-mt-3"}
                 />
               )}
             </>

@@ -8,7 +8,6 @@ type FormInputsProps = {
   label: string;
   icon: React.ReactNode;
   arrowIcon?: React.ReactNode;
-
   disabled?: boolean;
   message?: string | null
 };
@@ -20,10 +19,10 @@ const FormInputs = ({
   label,
   icon,
   arrowIcon,
-
   value,
   disabled,
-  message
+  message,
+
 }: FormInputsProps) => {
   return (
     <>

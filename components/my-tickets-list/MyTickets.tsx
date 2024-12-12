@@ -2,7 +2,7 @@
 import { useGlobalContext } from "@/context/ticket-tracer-context";
 import { formateHour, formattedDate, getFormatDay } from "@/utils/functions";
 import React from "react";
-import { FaTicket, FaTrainSubway } from "react-icons/fa6";
+import {  FaTrainSubway } from "react-icons/fa6";
 import { IoTicket } from "react-icons/io5";
 
 const MyTickets = () => {

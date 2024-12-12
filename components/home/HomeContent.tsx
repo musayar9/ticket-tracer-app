@@ -16,7 +16,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ data }) => {
 
   useEffect(() => {
     if (pathname === "/") {
-      localStorage.removeItem("ticket");
+  
       setEmail("");
       setLoading(false);
     

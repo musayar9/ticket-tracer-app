@@ -96,7 +96,8 @@ const SendMail: React.FC<SendMailProps> = ({ setShowSuccessMsg }) => {
         localStorage.setItem("email", email);
         setShowSuccessMsg(true);
         setLoading(false);
-        return res;
+     console.log(res, "res")
+     return res
       } catch (error) {
         setLoading(false);
         if (axios.isAxiosError(error)) {

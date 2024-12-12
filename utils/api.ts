@@ -19,7 +19,7 @@ export const fetchTrain = async () => {
 export const searchTrain = async (requestBody: RequestBody) => {
   try {
     const response = await customFetch.post("/v2/tcdd/query", requestBody);
-
+console.log(response, "response")
     return response.data.details;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -33,6 +33,7 @@ export const searchTrain = async (requestBody: RequestBody) => {
 export const ticketRequest = async ({ email }: { email: string }) => {
   try {
     const res = await customFetch.get(`/ticket-request/mail/${email}`);
+    console.log("res", res)
     const data = await res.data;
     return data;
   } catch (error) {
