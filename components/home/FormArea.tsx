@@ -124,9 +124,6 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
 
     // router.push("/search-ticket");
     router.replace("/search-ticket");
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
   };
 
   useEffect(() => {
@@ -233,6 +230,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
     fromStationData,
     toStations,
   ]);
+
   return (
     <div className="p-2 space-y-2">
       <div className=" flex items-center justify-between relative  border-b border-slate-300 pb-1 ">
@@ -283,12 +281,14 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
             <p className="text-[#003aa6] text-[15px] font-[600] ">Tek Yön</p>
           </div>
           <form onSubmit={handleSubmit} className="-mt-2">
-            <div className="flex  flex-col md:flex-row  items-center justify-center ps-1 gap-2">
+            <div className="flex  flex-col md:flex-row  items-center justify-center ps-1 lg:gap-2">
               <FormInputs
                 value={fromStation}
                 onChange={handleFromStationChange}
                 onFocus={() => {
                   setOpenDepartureDropdown(true);
+                  setOpenArrivalDropDown(false);
+
                   setIsDeparture(true);
                 }}
                 id={"departure_station"}
@@ -303,14 +303,20 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 onChange={handleToStationChange}
                 onFocus={() => {
                   setOpenArrivalDropDown(true);
+                  setOpenDepartureDropdown(false);
                   setIsArrival(true);
                 }}
                 id={"arrival_station"}
                 label={"Nereye"}
                 icon={<LuArrowRightToLine className="mr-1" />}
-                disabled={!fromStation || !!departureError}
+                disabled={
+                  !fromStation ||
+                  !!departureError ||
+                  !fromStationData.some(
+                    (station) => station.stationName === fromStation
+                  )
+                }
                 message={arrivalError}
-               
               />
             </div>
 

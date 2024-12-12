@@ -9,7 +9,8 @@ type FormInputsProps = {
   icon: React.ReactNode;
   arrowIcon?: React.ReactNode;
   disabled?: boolean;
-  message?: string | null
+  message?: string | null;
+  ref?: React.RefObject<HTMLInputElement>;
 };
 
 const FormInputs = ({
@@ -22,12 +23,11 @@ const FormInputs = ({
   value,
   disabled,
   message,
-
 }: FormInputsProps) => {
   return (
     <>
       <div className="flex items-start flex-col w-full">
-        <div className="relative w-full" >
+        <div className="relative w-full">
           <input
             type="text"
             id={id}
@@ -49,11 +49,10 @@ const FormInputs = ({
             <span className="pl-1">{label}</span>
           </label>
         </div>
- 
-          <div className="h-5 pt-2">
-            <p className="text-red-600 text-xs">{message}</p>
-          </div>
 
+        <div className="h-5 pt-2">
+          <p className="text-red-600 text-xs">{message}</p>
+        </div>
       </div>
     </>
   );

@@ -55,14 +55,6 @@ body {
 }
 
 .seferDepartureArrival {
-  /* border-right: 2px solid #8392a7;
-  border-left: 2px solid #8392a7;
-  border-style: dotted;
-  border-top: 0px;
-  border-bottom: 0px;
-  padding-left: 32px;
-  padding-right: 32px;
-  height: 100%; */
   position: relative;
 }
 .seferDepartureArrival::before {
@@ -101,15 +93,13 @@ body {
 
 .tickets::before {
   content: "";
-  display: inline-block; /* Görünür hale getirildi */
-  border-radius: 50%; /* Tam yuvarlak yapı için */
-  width: 24px; /* Eni ve boyu eşit */
+  display: inline-block; 
+  border-radius: 50%;  
+  width: 24px;  
   height: 24px;
   position: absolute;
   right: -30px;
   bottom: -12px;
-  /* background-color: #e8ecf0; */
-  /* background: linear-gradient(0deg, #e8ecf0 50%); */
   background-color: transparent !important;
   background: -o-linear-gradient(
     bottom,
@@ -137,19 +127,7 @@ body {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 49%, #e8ecf0 50%);
 }
 
-/* .dropdown-menu::before {
-  content: "";
-  display: flex;
-  position: absolute;
-  transform: rotate(180deg);
-  left: 98px;
-  top: -13px;
-  border: 15px solid red;
 
-  border-color: #fff transparent transparent transparent;
-
-  z-index: 1;
-} */
 .dropdown-menu::before {
   content: "";
   display: flex;
@@ -193,6 +171,6 @@ body {
 @media (min-width: 768px) {
   .seferDepartureArrival::before,
   .seferDepartureArrival::after {
-    display: inline-block; /* Bu boyutlarda göster */
+    display: inline-block; 
   }
 }
