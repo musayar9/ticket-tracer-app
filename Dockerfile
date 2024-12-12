@@ -1,5 +1,5 @@
 # Base image olarak Node.js kullan
-FROM node:16
+FROM node:21
 
 # Uygulama dizinini oluştur ve çalışma dizini olarak ayarla
 WORKDIR /app
