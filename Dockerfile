@@ -5,7 +5,7 @@ FROM node:21 AS builder
 WORKDIR /app
 
 # package.json ve yarn.lock dosyalarını kopyala
-COPY package.json yarn.lock ./
+COPY package.json /package-lock.json ./
 
 # Yarn bağımlılıklarını yükle
 RUN yarn install --frozen-lockfile
@@ -35,4 +35,4 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 
 # Uygulamayı başlat
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
