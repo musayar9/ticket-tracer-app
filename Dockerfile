@@ -8,13 +8,13 @@ WORKDIR /app
 COPY package.json /package-lock.json ./
 
 # Yarn bağımlılıklarını yükle
-RUN yarn install --frozen-lockfile
+RUN npm install --frozen-lockfile
 
 # Uygulama dosyalarını kopyala
 COPY . .
 
 # Production için build et
-RUN yarn build
+RUN npm build
 
 # 2. Aşama: Production ortamı için minimal Node.js imajı
 FROM node:21 AS runner
