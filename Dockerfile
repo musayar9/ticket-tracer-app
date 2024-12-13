@@ -19,6 +19,8 @@ RUN npm run build
 # 2. Aşama: Production ortamı için minimal Node.js imajı
 FROM node:21-slim AS runner
 
+
+
 # Ortamı production olarak ayarla
 ENV NODE_ENV=production
 
