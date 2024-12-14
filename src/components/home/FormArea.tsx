@@ -179,9 +179,11 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
             )
           ) {
             setDepartureError("Tren Kalkış Alanı Gereklidir");
+             
             setToStation("");
           }
           setIsDeparture(false);
+        
         }
 
         if (isArrival) {
@@ -192,6 +194,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
             setArrivalError("Tren Varış Alanı Gereklidir");
           }
           setIsArrival(false);
+          setOpenDepartureDropdown(false);
         }
       }
 
@@ -289,6 +292,7 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 onChange={handleFromStationChange}
                 onFocus={() => {
                   setOpenDepartureDropdown(true);
+                    setOpenArrivalDropDown(false);
                   setIsDeparture(true);
                 }}
                 id={"departure_station"}
@@ -303,14 +307,16 @@ const FormArea: React.FC<FormAreaProps> = ({ data }) => {
                 onChange={handleToStationChange}
                 onFocus={() => {
                   setOpenArrivalDropDown(true);
+                   setOpenDepartureDropdown(false);
                   setIsArrival(true);
                 }}
                 id={"arrival_station"}
                 label={"Nereye"}
                 icon={<LuArrowRightToLine className="mr-1" />}
-                disabled={!fromStation || !!departureError}
+                disabled={!fromStation || !!departureError ||  !fromStationData.some(
+              (station) => station.stationName === fromStation
+            )}
                 message={arrivalError}
-               
               />
             </div>
 

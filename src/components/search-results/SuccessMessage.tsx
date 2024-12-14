@@ -1,7 +1,7 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from '@/context/ticket-tracer-context';
+import { useGlobalContext } from "@/context/ticket-tracer-context";
 
 type SuccessMessageProps = {
   setShowSuccessMsg: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({
   const { setShowModal } = useGlobalContext();
   return (
     <div className="flex flex-col items-center justify-center p-6 gap-4">
-      <h3 className="font-semibold text-emerald-600 text-3xl">
+      <h3 className="font-semibold text-emerald-600 text-center text-3xl">
         Talebiniz başarı ile alındı
       </h3>
       <p className="text-[#444763] text-md text-center">
@@ -35,4 +35,4 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({
   );
 };
 
-export default SuccessMessage
+export default SuccessMessage;

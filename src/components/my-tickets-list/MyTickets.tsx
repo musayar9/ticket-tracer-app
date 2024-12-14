@@ -94,7 +94,7 @@ const MyTickets = () => {
           ))}
         </>
       ) : (
-        <div className="flex items-center justify-center flex-col my-10">
+        <div className="flex items-center justify-center flex-col my-24">
           <IoTicket size={64} className="text-blue-600" />
           <p className="text-center text-2xl text-slate-700">
             Herhangi bir bilet kaydı bulunmamaktadır.
